@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using com.cyborgAssets.inspectorButtonPro;
@@ -6,10 +7,12 @@ using UnityEngine;
 
 public class Garden : MonoBehaviour
 {
+    public static event Action<Plot, Plant> OnPlantEnter;
+    public static event Action<Plot, Plant> OnPlantExit;
     public static Garden Instance { get; private set; }
-    [SerializeField] private int width = 6;
-    [SerializeField] private int height = 4;
-    private Plot GetPlot(int i, int j) => transform.GetChild(width * i + j).GetComponent<Plot>();
+    [field : SerializeField] public int width { get; private set; } = 6;
+    [field : SerializeField] public int height { get; private set; } = 4;
+    public Plot GetPlot(int i, int j) => transform.GetChild(width * i + j).GetComponent<Plot>();
 
     private void Awake()
     {

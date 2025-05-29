@@ -1,43 +1,61 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class SharingIsCaring : ISkill
+public class SharingIsCaring : Skill
 {
-    public string Name => "Pheonix";
+    public override string Name => "SharingIsCaring";
 
-    public string Description => "Blablabla";
+    public override string Description => "Blablabla";
 
-    private Plant owner;
-
-    private Dictionary<Effect, Plot> effect_table;
-
-    public void OnMature()
+    public override void OnMature()
     {
         List<Plot> neighbours = Garden.Instance.GetNeighbours(owner.plot.i, owner.plot.j);
         foreach (Plot plot in neighbours)
         {
-            Effect effect = new(Effect.Flag.Score1, this, new());
-            effect_table.Add(effect, plot);
-            plot.effects.Add(effect);
+            AddEffect(new(Effect.Flag.Score1, this, new()), plot);
         }
         GameManager.Instance.UpdateScore();
     }
+}
 
-    public void OnRemoved()
+public class HandInHand : Skill
+{
+    public override string Name => "Hand in hand";
+
+    public override string Description => "Blablabla";
+
+    public override void SetOwner(Plant plant)
     {
-        foreach (KeyValuePair<Effect, Plot> kvp in effect_table)
+        base.SetOwner(plant);
+        Garden.OnPlantEnter += (_,_) => UpdateEffects();
+        Garden.OnPlantExit += (_, _) => UpdateEffects();
+    }
+
+    public override void OnMature()
+    {
+        UpdateEffects();
+    }
+
+
+    public void UpdateEffects()
+    {
+        foreach (Effect effect in effect_table.Keys)
         {
-            kvp.Value.effects.Remove(kvp.Key);
+            RemoveEffect(effect);
         }
-        GameManager.Instance.UpdateScore();
-    }
-
-
-
-    public void SetOwner(Plant plant)
-    {
-        this.owner = plant;
-        effect_table = new();
+        Garden garden = Garden.Instance;
+        for (int i = 0; i < garden.height; i++)
+        {
+            for (int j = 0; j < garden.width; j++)
+            {
+                if (garden.GetNeighbours(i, j).Where((Plot p) => p.plant != null).Count() >= 1)
+                {
+                    AddEffect(new(Effect.Flag.Score1, this, new()), garden.GetPlot(i, j));
+                }
+            }
+        }
     }
 }

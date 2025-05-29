@@ -23,7 +23,7 @@ public class Plant : ScriptableObject
         day = 0;
         this.plot = plot;
         hasMatured = false;
-        skill.SetOwner(this);
+        skill?.SetOwner(this);
     }
 
     public void OnMature()
@@ -34,14 +34,14 @@ public class Plant : ScriptableObject
 
     public void OnRemoved()
     {
-        skill.OnRemoved();
+        skill?.OnRemoved();
     }
 
     public void EndDay()
     {
         day++;
         if (!hasMatured && day >= growthTime) OnMature();
-        skill.OnDayEnd();
+        skill?.OnDayEnd();
     }
 
     public Sprite Sprite => sprites[Mathf.Min(sprites.Count - 1, day)];
