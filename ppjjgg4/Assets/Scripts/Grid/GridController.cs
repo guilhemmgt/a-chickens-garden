@@ -10,8 +10,10 @@ public class GridController : MonoBehaviour
     [SerializeField] private float heightPercentage = 0.8f;
     [SerializeField] private float cellSpacing = 0.05f; // Espacement entre les cellules en unités monde
 
+    [SerializeField] private Sprite defaultCellSprite; // Sprite par défaut pour les cellules
+
     [SerializeField] private GameObject gridCellPrefab;
-    private GameObject[,] gridCells;
+    private Plot[,] plots;
 
     void Start()
     {
@@ -41,7 +43,7 @@ public class GridController : MonoBehaviour
             cellSize * nbLines / 2f + cellSpacing * (nbLines - 1) / 2f - cellSize / 2f
         );
 
-        gridCells = new GameObject[nbLines, nbColumns];
+        plots = new Plot[nbLines, nbColumns];
 
         for (int i = 0; i < nbLines; i++)
         {
@@ -49,13 +51,17 @@ public class GridController : MonoBehaviour
             {
                 GameObject cell = Instantiate(gridCellPrefab, transform);
 
+                Plot plot = cell.AddComponent<Plot>();
+                plot.i = i;
+                plot.j = j;
+
                 Vector2 pos = startPos + new Vector2(j * (cellSize + cellSpacing), -i * (cellSize + cellSpacing));
                 cell.transform.position = pos;
 
                 // Ajuste la taille du sprite pour correspondre à la cellule si un sprite est présent
-                SpriteRenderer sr = cell.GetComponent<SpriteRenderer>();
-                if (sr != null)
+                if (cell.TryGetComponent<SpriteRenderer>(out var sr))
                 {
+                    sr.sprite = defaultCellSprite;
                     Vector2 originalSize = sr.sprite.bounds.size;
                     float scaleX = cellSize / originalSize.x;
                     float scaleY = cellSize / originalSize.y;
@@ -63,7 +69,8 @@ public class GridController : MonoBehaviour
                 }
 
                 cell.name = $"Cell_{i}_{j}";
-                gridCells[i, j] = cell;
+
+                plots[i, j] = plot;
             }
         }
     }
@@ -71,7 +78,7 @@ public class GridController : MonoBehaviour
     [ProButton]
     public void StoreChildrenToCellsArray()
     {
-        gridCells = new GameObject[nbLines, nbColumns];
+        plots = new Plot[nbLines, nbColumns];
 
         int totalCells = nbLines * nbColumns;
         int expectedChildren = Mathf.Min(transform.childCount, totalCells);
@@ -82,7 +89,7 @@ public class GridController : MonoBehaviour
             int j = index % nbColumns; // colonne
 
             Transform child = transform.GetChild(index);
-            gridCells[i, j] = child.gameObject;
+            plots[i, j] = child.gameObject.GetComponent<Plot>();
         }
     }
 
@@ -98,13 +105,13 @@ public class GridController : MonoBehaviour
 
     public void CleanGrid()
     {
-        if (gridCells != null)
+        if (plots != null)
         {
-            foreach (GameObject cell in gridCells)
+            foreach (Plot cell in plots)
             {
-                Destroy(cell);
+                Destroy(cell.gameObject);
             }
         }
-        gridCells = null;
+        plots = null;
     }
 }
