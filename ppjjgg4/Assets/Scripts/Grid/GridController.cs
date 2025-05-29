@@ -105,9 +105,6 @@ public class GridController : MonoBehaviour
         }
     }
 
-
-
-
     [ProButton]
     public void ResetGrid()
     {
