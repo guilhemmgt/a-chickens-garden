@@ -10,29 +10,38 @@ public class Garden : MonoBehaviour
     public static event Action<Plot, Plant> OnPlantEnter;
     public static event Action<Plot, Plant> OnPlantExit;
     public static Garden Instance { get; private set; }
-    [field : SerializeField] public int width { get; private set; } = 6;
-    [field : SerializeField] public int height { get; private set; } = 4;
-    public Plot GetPlot(int i, int j) => transform.GetChild(width * i + j).GetComponent<Plot>();
+    [SerializeField] private int width = 6;
+    [SerializeField] private int height = 4;
+
+    private Plot[,] plots;
 
     private void Awake()
     {
         if (Instance != null)
         {
+            Debug.LogWarning("Multiple instances of Garden detected. Destroying duplicate.");
             Destroy(gameObject);
             return;
         }
         Instance = this;
-        for (int i = 0; i < height; i++)
-        {
-            for (int j = 0; j < width; j++)
-            {
-                Plot plot = Plot.Instantiate(i, j);
-                plot.name = "Plot " + i.ToString() + "," + j.ToString();
-                plot.transform.SetParent(transform);
-            }
-        }
     }
 
+    public void SetGarden(Plot[,] plots)
+    {
+        this.plots = plots;
+        this.width = plots.GetLength(1);
+        this.height = plots.GetLength(0);
+    }
+
+    public Plot GetPlot(int i, int j)
+    {
+        if (i < 0 || i >= height || j < 0 || j >= width)
+        {
+            Debug.LogError($"Invalid plot coordinates: ({i}, {j})");
+            return null;
+        }
+        return plots[i, j];
+    }
 
     [ProButton]
     public void EndDay()

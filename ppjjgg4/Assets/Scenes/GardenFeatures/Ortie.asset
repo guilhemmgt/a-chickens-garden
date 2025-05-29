@@ -12,8 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6319a14f98a1043eeae1ab7ac6957ee9, type: 3}
   m_Name: Ortie
   m_EditorClassIdentifier: 
+  description: 
   sprites:
-  - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   score: 1
   growthTime: 3
+  <plot>k__BackingField: {fileID: 0}
+  skill:
+    rid: 2255358501037277257
+  day: 0
+  hasMatured: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 2255358501037277257
+      type: {class: SharingIsCaring, ns: , asm: Assembly-CSharp}
+      data: 

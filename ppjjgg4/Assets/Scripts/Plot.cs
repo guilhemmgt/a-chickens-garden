@@ -4,9 +4,9 @@ using com.cyborgAssets.inspectorButtonPro;
 using Unity.VisualScripting;
 using Unity.XR.GoogleVr;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(SpriteRenderer))]
-public class Plot : MonoBehaviour
+public class Plot : MonoBehaviour, IPointerClickHandler
 {
     public event Action<Plant> OnPlantEnter;
     public event Action<Plant> OnPlantExit;
@@ -18,8 +18,8 @@ public class Plot : MonoBehaviour
         plot.j = j;
         return plot;
     }
-    public int i { get; private set; }
-    public int j { get; private set; }
+    public int i { get; set; }
+    public int j { get; set; }
 
     [field : SerializeField] public List<Effect> effects { get; private set; }
     [SerializeField] private Type type = Type.Soil;
@@ -67,5 +67,33 @@ public class Plot : MonoBehaviour
             sr.sprite = plant.Sprite;
         }
     }
-    
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Plant currentPlant = ChoiceHandler.Instance.GetCurrentPlant();
+
+        if (plant == null)
+        {
+            // Want to plant a new plant
+            if (ChoiceHandler.Instance.HasCurrentPlant())
+            {
+                if (ChoiceHandler.Instance.TryPlantCurrent(this))
+                {
+                    Debug.Log("Plot " + i + "," + j + " clicked, planted " + currentPlant.name);
+                }
+                else
+                {
+                    Debug.Log("Plot " + i + "," + j + " clicked, failed to plant current plant");
+                }
+            }
+            else
+            {
+                Debug.Log("Plot " + i + "," + j + " clicked, no current plant selected");
+            }
+        }
+        else
+        {
+            Debug.Log("Plot " + i + "," + j + " clicked, no plant");
+        }
+    }
 }
