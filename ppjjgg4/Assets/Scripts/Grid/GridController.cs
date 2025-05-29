@@ -18,6 +18,18 @@ public class GridController : MonoBehaviour
     void Start()
     {
         InitializeGrid();
+        LoadGarden();
+    }
+
+    private void LoadGarden()
+    {
+        Garden garden = Garden.Instance;
+        if (garden == null)
+        {
+            Debug.LogError("Garden instance not found. Please ensure Garden is initialized before GridController.");
+            return;
+        }
+        garden.SetGarden(plots);
     }
 
     private void InitializeGrid()
