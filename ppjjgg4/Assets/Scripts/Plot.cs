@@ -135,18 +135,17 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
 
     #region Inspector Methods
-    public float timeBeforeShowBubble = 3f; // Time in seconds before showing the bubble
-    private float bubbleTimer = 0f; // Timer to track time before showing the bubble
+    public float timeBeforeShowBubble = 2f; // Time in seconds before showing the bubble
 
     private IEnumerator currentCoroutine = null;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        Debug.Log("Plot " + i + "," + j + " hovered, showing bubble");
         if (GameManager.GameState == GameState.Menu)
         {
             return; // Do not show bubble in menu state
         }
-        bubbleTimer = 0f; // Reset the timer
         currentCoroutine = ShowBubbleAfterDelay();
         StartCoroutine(currentCoroutine); // Start the coroutine to show the bubble after a delay
     }
@@ -154,7 +153,6 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public void OnPointerExit(PointerEventData eventData)
     {
         PreviewController.Instance.HideBubble();
-        bubbleTimer = 0f; // Reset the timer when pointer exits
         if (currentCoroutine != null)
             StopCoroutine(currentCoroutine); // Stop the coroutine if the pointer exits before the delay
         currentCoroutine = null;
@@ -162,12 +160,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     public IEnumerator ShowBubbleAfterDelay()
     {
-        bubbleTimer = 0f; // Reset the timer
-        while (bubbleTimer < timeBeforeShowBubble)
-        {
-            bubbleTimer += Time.deltaTime; // Increment the timer
-            yield return null; // Wait for the next frame
-        }
+        yield return new WaitForSeconds(timeBeforeShowBubble);
         PreviewController.Instance.ShowBubble(transform.position, GetInfoPlot());
     }
 

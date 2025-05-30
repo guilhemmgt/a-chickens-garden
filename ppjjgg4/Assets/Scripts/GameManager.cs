@@ -58,6 +58,5 @@ public class GameManager : MonoBehaviour
         TopBarView.Instance.SetScore(newScore);
         TopBarView.Instance.SetDay (day);
         //TopBarView.Instance.SetEventSprite (...); // TODO : ajout �vents
-
     }
 }
