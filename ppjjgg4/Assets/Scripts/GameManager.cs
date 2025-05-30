@@ -1,4 +1,5 @@
 using com.cyborgAssets.inspectorButtonPro;
+using DG.Tweening;
 using System;
 using TMPro;
 using UnityEngine;
@@ -46,10 +47,13 @@ public class GameManager : MonoBehaviour
     [ProButton]
     public void EndDay()
     {
-        day++;
-        OnDayEnded?.Invoke();
-        UpdateScore();
-    }
+        TransitionView.Instance.FadeIn ().OnComplete (() => {
+            day++;
+            OnDayEnded?.Invoke ();
+            UpdateScore ();
+			TransitionView.Instance.FadeOut ();
+        });
+	}
 
     public void UpdateScore()
     {
