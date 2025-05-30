@@ -51,9 +51,6 @@ public class LookingForTheSun : Skill
         {
             if (n.plant != null)
             {
-                Debug.Log("-----");
-                Debug.Log(n.plant.Species);
-                Debug.Log("Blue Sun");
                 if (n.plant.Species.Equals("Blue Sun")) AddEffect(new(Effect.Flag.Score40, this, new() { n }), owner.plot);
             }
         }
@@ -86,9 +83,6 @@ public class LookingForTheMoon : Skill
         {
             if (n.plant != null)
             {
-                Debug.Log("-----");
-                Debug.Log(n.plant.Species);
-                Debug.Log("Yellow Moon");
                 if (n.plant.Species.Equals("Yellow Moon")) AddEffect(new(Effect.Flag.Score40, this, new() { n }), owner.plot);
             }
         }
@@ -104,9 +98,6 @@ public class HappyNeighbours : Skill
 
     public override void SetOwner(Plant plant)
     {
-        Debug.Log("SET OWNER");
-        Debug.Log(plant);
-        Debug.Log(plant.plot);
         base.SetOwner(plant);
         Garden.OnPlantEnter += (_, _) => UpdateSkill();
     }
@@ -118,9 +109,7 @@ public class HappyNeighbours : Skill
 
     private void UpdateSkill()
     {
-        Debug.Log("UPDATE SKILL");
-        Debug.Log(owner);
-        Debug.Log(owner.plot);
+        if (!owner.hasMatured) return;
         foreach (Effect effect in effect_table.Keys) RemoveEffect(effect);
         List<Plot> neighbours = Garden.Instance.GetNeighbours(owner.plot.i, owner.plot.j);
         foreach (Plot plot in neighbours)

@@ -26,6 +26,7 @@ public class Garden : MonoBehaviour
         Instance = this;
         OnPlantEnter = null;
         OnPlantExit = null;
+        StoreChildrenToCellsArray();
     }
 
     public void SetGarden(Plot[,] plots)
@@ -35,6 +36,27 @@ public class Garden : MonoBehaviour
         this.height = plots.GetLength(0);
     }
 
+    [ProButton]
+    public void StoreChildrenToCellsArray()
+    {
+        plots = new Plot[height, width];
+
+        int totalCells = height * width;
+        int expectedChildren = Mathf.Min(transform.childCount, totalCells);
+
+        for (int index = 0; index < expectedChildren; index++)
+        {
+            int i = index / width; // ligne
+            int j = index % width; // colonne
+
+            Transform child = transform.GetChild(index);
+            Plot plot = child.gameObject.GetComponent<Plot>();
+            plot.i = i;
+            plot.j = j;
+            this.plots[i, j] = plot;
+        }
+    }
+
     public Plot GetPlot(int i, int j)
     {
         if (i < 0 || i >= height || j < 0 || j >= width)
@@ -42,6 +64,8 @@ public class Garden : MonoBehaviour
             Debug.LogError($"Invalid plot coordinates: ({i}, {j})");
             return null;
         }
+        Debug.Log("PLOT");
+        Debug.Log(plots[i, j]);
         return plots[i, j];
     }
 

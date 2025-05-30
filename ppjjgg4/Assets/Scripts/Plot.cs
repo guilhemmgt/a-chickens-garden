@@ -44,7 +44,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler
         this.plant.OnPlanted(this);
         sr.sprite = this.plant.Sprite;
         OnPlantEnter?.Invoke(this.plant);
-        Garden.OnPlantEnter(this, this.plant);
+        Garden.OnPlantEnter?.Invoke(this, this.plant);
     }
 
     [ProButton]
