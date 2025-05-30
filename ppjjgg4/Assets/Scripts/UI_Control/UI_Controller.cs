@@ -18,10 +18,10 @@ public class UI_Controller : MonoBehaviour
 
 	private Vector3 startPosition;
 
-    private Vector3 leftPos = new Vector3 (-221, -9, 90);
-    private Vector3 rightPos = new Vector3 (355, -9, 90);
-    private Vector3 topPos = new Vector3 (69, 156, 90);
-    private Vector3 bottomPos = new Vector3 (69, -173, 90);
+    private Vector3 leftPos = new Vector3 (-285, 0, 90);
+    private Vector3 rightPos = new Vector3 (285, 0, 90);
+    private Vector3 topPos = new Vector3 (0, 160, 90);
+    private Vector3 bottomPos = new Vector3 (0, -160, 90);
 
     void Start()
     {

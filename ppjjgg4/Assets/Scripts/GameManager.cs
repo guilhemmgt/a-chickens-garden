@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI tmp;
     private int day;
-    private int score;
+    public int score;
 
     private void Awake()
     {
@@ -56,7 +56,8 @@ public class GameManager : MonoBehaviour
         int newScore = Garden.Instance.GetScore();
 
         TopBarView.Instance.SetScore(newScore);
-        TopBarView.Instance.SetDay (day);
+        TopBarView.Instance.SetDay(day);
+        this.score = newScore;
         //TopBarView.Instance.SetEventSprite (...); // TODO : ajout �vents
     }
 }
