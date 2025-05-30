@@ -47,11 +47,11 @@ public class GameManager : MonoBehaviour
     [ProButton]
     public void EndDay()
     {
-        TransitionView.Instance.FadeIn ().OnComplete (() => {
+        Chicken.Instance.FadeIn ().OnComplete (() => {
             day++;
             OnDayEnded?.Invoke ();
             UpdateScore ();
-			TransitionView.Instance.FadeOut ();
+			Chicken.Instance.FadeOut ();
         });
 	}
 
