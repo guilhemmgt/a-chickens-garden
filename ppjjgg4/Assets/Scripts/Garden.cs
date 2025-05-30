@@ -7,11 +7,11 @@ using UnityEngine;
 
 public class Garden : MonoBehaviour
 {
-    public static event Action<Plot, Plant> OnPlantEnter;
-    public static event Action<Plot, Plant> OnPlantExit;
+    public static Action<Plot, Plant> OnPlantEnter;
+    public static Action<Plot, Plant> OnPlantExit;
     public static Garden Instance { get; private set; }
-    [SerializeField] private int width = 6;
-    [SerializeField] private int height = 4;
+    [field : SerializeField] public int width { get; private set; } = 6;
+    [field : SerializeField] public int height { get; private set; } = 4;
 
     private Plot[,] plots;
 
@@ -24,6 +24,8 @@ public class Garden : MonoBehaviour
             return;
         }
         Instance = this;
+        OnPlantEnter = null;
+        OnPlantExit = null;
     }
 
     public void SetGarden(Plot[,] plots)

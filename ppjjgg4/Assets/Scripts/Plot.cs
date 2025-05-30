@@ -44,6 +44,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler
         this.plant.OnPlanted(this);
         sr.sprite = this.plant.Sprite;
         OnPlantEnter?.Invoke(this.plant);
+        Garden.OnPlantEnter(this, this.plant);
     }
 
     [ProButton]
@@ -52,9 +53,10 @@ public class Plot : MonoBehaviour, IPointerClickHandler
         if (plant != null)
         {
             plant.OnRemoved();
+            OnPlantExit?.Invoke(plant);
+            Garden.OnPlantExit?.Invoke(this, plant);
             Destroy(plant);
             plant = null;
-            OnPlantExit?.Invoke(plant);
         }
     }
 
@@ -96,4 +98,5 @@ public class Plot : MonoBehaviour, IPointerClickHandler
             Debug.Log("Plot " + i + "," + j + " clicked, no plant");
         }
     }
+    
 }

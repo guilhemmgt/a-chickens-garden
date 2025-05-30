@@ -70,7 +70,7 @@ public class ChoiceHandler : MonoBehaviour
         plot.AddPlant(currentPlant);
         AudioController.Instance.PlayPlantingSound(); // Play sound effect when setting a new plant
 
-        currentPlant = null; // Clear current plant after planting
+        //currentPlant = null; // Clear current plant after planting
         return true;
     }
 }

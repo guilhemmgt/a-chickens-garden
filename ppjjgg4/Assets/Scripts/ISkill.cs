@@ -10,6 +10,8 @@ public interface ISkill
     void OnRemoved() { }
     void SetOwner(Plant plant);
     Plant GetOwner();
+    public void AddEffect(Effect effect, Plot plot);
+    public void RemoveEffect(Effect effect);
 }
 
 public abstract class Skill : ISkill
@@ -40,7 +42,7 @@ public abstract class Skill : ISkill
 
     public Plant GetOwner() => owner;
 
-    protected void AddEffect(Effect effect, Plot plot)
+    public void AddEffect(Effect effect, Plot plot)
     {
         effect_table.Add(effect, plot);
         plot.effects.Add(effect);
