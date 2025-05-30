@@ -13,54 +13,51 @@ public class UI_Controller : MonoBehaviour
     [Header("Anim settings")]
     [SerializeField] private float moveDuration = 0.5f;
     [SerializeField] private Ease moveEase = Ease.Linear;
+	[SerializeField] private float overshoot = 0.25f;
 
-    private Vector3 startPosition;
+	private Vector3 startPosition;
 
-    private float screenWidth;
-    private float screenHeight;
+    private Vector3 leftPos = new Vector3 (-221, -9, 90);
+    private Vector3 rightPos = new Vector3 (355, -9, 90);
+    private Vector3 topPos = new Vector3 (69, 156, 90);
 
     void Start()
     {
-        screenWidth = Camera.main.pixelWidth;
-        screenHeight = Camera.main.pixelHeight;
-
         startPosition = menuTransform.position;
-
+        Debug.Log (startPosition);
         // Shop déplacé hors écran à droite
-        shopTransform.position = new Vector3(startPosition.x + screenWidth, startPosition.y, startPosition.z);
+        shopTransform.position = rightPos;
 
         // TopBar déplacée hors écran en haut
-        topBarTransform.position = new Vector3(startPosition.x, startPosition.y + screenHeight, startPosition.z);
+        topBarTransform.position = leftPos;
     }
 
-    public void Move(RectTransform targetTransform, Vector2 direction)
+    public void Move(RectTransform targetTransform, Vector3 targetPosition)
     {
-        Vector2 targetPosition = new Vector2(startPosition.x + screenWidth * direction.x, 
-            startPosition.y + screenHeight * direction.y); 
-        targetTransform.DOMove(targetPosition, moveDuration).SetEase(moveEase);
+        targetTransform.DOMove (targetPosition, moveDuration).SetEase (moveEase, overshoot);
     }
 
     [ProButton]
     public void ShowMenu()
     {
-        Move(menuTransform, Vector2.zero);
-        Move(shopTransform, Vector2.right);
-        Move(topBarTransform, Vector2.up);
+        Move(menuTransform, startPosition);
+        Move(shopTransform, rightPos);
+        Move(topBarTransform, topPos);
     }
 
     [ProButton]
     public void ShowGame()
     {
-        Move(menuTransform, Vector2.left);
-        Move(shopTransform, Vector2.right);
-        Move(topBarTransform, Vector2.zero);
+        Move(menuTransform, leftPos);
+        Move(shopTransform, rightPos);
+        Move(topBarTransform, startPosition);
     }
 
     [ProButton]
     public void ShowShop()
     {
-        Move(menuTransform, Vector2.left);
-        Move(shopTransform, Vector2.zero);
-        Move(topBarTransform, Vector2.zero);
+        Move(menuTransform, leftPos);
+        Move(shopTransform, startPosition);
+        Move(topBarTransform, topPos);
     }
 }
