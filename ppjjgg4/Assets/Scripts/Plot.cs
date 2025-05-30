@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using com.cyborgAssets.inspectorButtonPro;
 using Unity.VisualScripting;
@@ -7,7 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SocialPlatforms.Impl;
 
-public class Plot : MonoBehaviour, IPointerClickHandler
+public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Action<Plant> OnPlantEnter;
     public Action<Plant> OnPlantMatured;
@@ -23,7 +24,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler
     public int i { get; set; }
     public int j { get; set; }
 
-    [field : SerializeField] public List<Effect> effects { get; private set; }
+    [field: SerializeField] public List<Effect> effects { get; private set; }
     [SerializeField] private Type type = Type.Soil;
     private SpriteRenderer sr => transform.GetChild(0).GetComponent<SpriteRenderer>();
     [field: SerializeField] public Plant plant { get; private set; }
@@ -47,6 +48,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler
         sr.sprite = this.plant.Sprite;
         OnPlantEnter?.Invoke(this.plant);
         Garden.OnPlantEnter?.Invoke(this, this.plant);
+        PreviewController.Instance.UpdateInfo(GetInfoPlot());
     }
 
     [ProButton]
@@ -60,6 +62,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler
             Destroy(plant);
             plant = null;
             GameManager.Instance.UpdateScore();
+            sr.sprite = null; // Reset sprite to default, TODO: add default sprite for empty plots
         }
     }
 
@@ -121,6 +124,59 @@ public class Plot : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    
-    
+    #region Inspector Methods
+    public float timeBeforeShowBubble = 1.5f; // Time in seconds before showing the bubble
+    private float bubbleTimer = 0f; // Timer to track time before showing the bubble
+
+    private IEnumerator currentCoroutine = null;
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (GameManager.GameState == GameState.Menu)
+        {
+            return; // Do not show bubble in menu state
+        }
+        bubbleTimer = 0f; // Reset the timer
+        currentCoroutine = ShowBubbleAfterDelay();
+        StartCoroutine(currentCoroutine); // Start the coroutine to show the bubble after a delay
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        PreviewController.Instance.HideBubble();
+        StopCoroutine(currentCoroutine); // Stop the coroutine if the pointer exits before the delay
+        currentCoroutine = null;
+    }
+
+    public IEnumerator ShowBubbleAfterDelay()
+    {
+        bubbleTimer = 0f; // Reset the timer
+        while (bubbleTimer < timeBeforeShowBubble)
+        {
+            bubbleTimer += Time.deltaTime; // Increment the timer
+            yield return null; // Wait for the next frame
+        }
+        PreviewController.Instance.ShowBubble(transform.position, GetInfoPlot());
+    }
+
+    public string GetInfoPlot()
+    {
+        string info = $"Plot ({i}, {j})\n";
+        //info += $"Type: {type}\n";
+        if (plant != null)
+        {
+            info += $"Plant: {plant.Species}\n";
+            info += $"Day passed: {plant.day}\n";
+            //info += $"Has matured: {plant.hasMatured}\n";
+            info += $"Plant Score: {plant.GetScore()}\n";
+            info += $"Total score: {GetPlotScore()} \n";
+        }
+        else
+        {
+            info += "No plant\n";
+        }
+        return info;
+    }
+
+    #endregion
 }

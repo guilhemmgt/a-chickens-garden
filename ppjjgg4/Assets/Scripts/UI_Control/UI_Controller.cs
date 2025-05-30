@@ -46,6 +46,8 @@ public class UI_Controller : MonoBehaviour
         Move(menuTransform, Vector2.zero);
         Move(shopTransform, Vector2.right);
         Move(topBarTransform, Vector2.up);
+
+        GameManager.GameState = GameState.Menu;
     }
 
     [ProButton]
@@ -54,6 +56,8 @@ public class UI_Controller : MonoBehaviour
         Move(menuTransform, Vector2.left);
         Move(shopTransform, Vector2.right);
         Move(topBarTransform, Vector2.zero);
+
+        GameManager.GameState = GameState.Planting;
     }
 
     [ProButton]
@@ -62,5 +66,7 @@ public class UI_Controller : MonoBehaviour
         Move(menuTransform, Vector2.left);
         Move(shopTransform, Vector2.zero);
         Move(topBarTransform, Vector2.zero);
+
+        GameManager.GameState = GameState.Shop;
     }
 }

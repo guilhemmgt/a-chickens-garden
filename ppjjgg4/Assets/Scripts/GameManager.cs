@@ -3,10 +3,19 @@ using System;
 using TMPro;
 using UnityEngine;
 
+public enum GameState
+{
+    Menu,
+    Planting,
+    Shop,
+}
+
 public class GameManager : MonoBehaviour
 {
     public static event Action OnDayEnded;
     public static GameManager Instance;
+
+    public static GameState GameState { get; set; } = GameState.Menu;
 
     [SerializeField] private TextMeshProUGUI tmp;
     private int day;
