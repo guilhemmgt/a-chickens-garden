@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Species>k__BackingField: Rampants
   description: 
-  sprite: {fileID: 5777552420452043588, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
+  matureSprite: {fileID: 5777552420452043588, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
   score: 50
   growthTime: 3
   <plot>k__BackingField: {fileID: 0}

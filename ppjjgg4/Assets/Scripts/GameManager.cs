@@ -1,4 +1,5 @@
 using com.cyborgAssets.inspectorButtonPro;
+using DG.Tweening;
 using System;
 using TMPro;
 using UnityEngine;

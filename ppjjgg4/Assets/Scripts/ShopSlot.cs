@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using com.cyborgAssets.inspectorButtonPro;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class ShopSlot : MonoBehaviour
 {
@@ -11,14 +11,16 @@ public class ShopSlot : MonoBehaviour
     public bool isOpen = false;
     private Plant currentPlant;
 
-    public SpriteRenderer tempPreview;
+    //public SpriteRenderer tempPreview;
 
+    [HideInInspector]
+    public Image imagePreview;
 
     private void Awake()
     {
-        tempPreview = GetComponent<SpriteRenderer>();
+        imagePreview = GetComponentInChildren<Image>();
         isOpen = false;
-        tempPreview.color = Color.red;
+        imagePreview.color = Color.black;
     }
 
 
@@ -40,20 +42,20 @@ public class ShopSlot : MonoBehaviour
         }
         Plant p = choice[Random.Range(0, choice.Count)];
         currentPlant = p;
-        tempPreview.sprite = p.Sprite;
+        imagePreview.sprite = p.GetMatureSprite();
     }
 
     // Open slot when score is high enough
     public void Open()
     {
         isOpen = true;
-        tempPreview.color = Color.white;
+        imagePreview.color = Color.white;
     }
 
     // Close slot after plant was chosen today
     public void Close()
     {
-        tempPreview.color = Color.gray;
+        imagePreview.color = Color.gray;
     }
 
     [ProButton]

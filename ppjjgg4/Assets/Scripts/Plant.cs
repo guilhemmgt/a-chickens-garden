@@ -10,7 +10,7 @@ using UnityEngine;
 public class Plant : ScriptableObject {
     [field: SerializeField] public string Species { get; private set; }
     [TextArea (3, 5), SerializeField] private string description;
-    [SerializeField] private Sprite sprite;
+    [SerializeField] private Sprite matureSprite;
     [SerializeField] private int score = 1;
     [SerializeField] private int growthTime = 3;
     [field: SerializeField] public Plot plot { get; private set; }
@@ -50,7 +50,7 @@ public class Plant : ScriptableObject {
         get {
             if (day == 0) return seedSprite;
             if (day < growthTime) return shootSprite;
-            return sprite;
+            return matureSprite;
         }
     }
 
@@ -64,5 +64,9 @@ public class Plant : ScriptableObject {
         return score;
     }
 
+    public Sprite GetMatureSprite()
+    {
+        return matureSprite;
+    }
 
 }
