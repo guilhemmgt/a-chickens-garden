@@ -8,59 +8,61 @@ public class UI_Controller : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private RectTransform menuTransform;
     [SerializeField] private RectTransform topBarTransform;
-    [SerializeField] private RectTransform shopTransform;
+	[SerializeField] private RectTransform shopTransform;
+	[SerializeField] private RectTransform toShopSignTransform;
 
-    [Header("Anim settings")]
+	[Header("Anim settings")]
     [SerializeField] private float moveDuration = 0.5f;
     [SerializeField] private Ease moveEase = Ease.Linear;
+	[SerializeField] private float overshoot = 0.25f;
 
-    private Vector3 startPosition;
+	private Vector3 startPosition;
 
-    private float screenWidth;
-    private float screenHeight;
+    private Vector3 leftPos = new Vector3 (-221, -9, 90);
+    private Vector3 rightPos = new Vector3 (355, -9, 90);
+    private Vector3 topPos = new Vector3 (69, 156, 90);
+    private Vector3 bottomPos = new Vector3 (69, -173, 90);
 
     void Start()
     {
-        screenWidth = Camera.main.pixelWidth;
-        screenHeight = Camera.main.pixelHeight;
-
         startPosition = menuTransform.position;
 
-        // Shop déplacé hors écran à droite
-        shopTransform.position = new Vector3(startPosition.x + screenWidth, startPosition.y, startPosition.z);
+        ShowMenu (true);
 
-        // TopBar déplacée hors écran en haut
-        topBarTransform.position = new Vector3(startPosition.x, startPosition.y + screenHeight, startPosition.z);
-    }
+	}
 
-    public void Move(RectTransform targetTransform, Vector2 direction)
+    public void Move (RectTransform targetTransform, Vector3 targetPosition, bool instantSpeed = false)
     {
-        Vector2 targetPosition = new Vector2(startPosition.x + screenWidth * direction.x, 
-            startPosition.y + screenHeight * direction.y); 
-        targetTransform.DOMove(targetPosition, moveDuration).SetEase(moveEase);
+        if (instantSpeed)
+            targetTransform.position = targetPosition;
+        else
+            targetTransform.DOMove (targetPosition, moveDuration).SetEase (moveEase, overshoot);
     }
 
     [ProButton]
-    public void ShowMenu()
+    public void ShowMenu (bool instantSpeed = false)
     {
-        Move(menuTransform, Vector2.zero);
-        Move(shopTransform, Vector2.right);
-        Move(topBarTransform, Vector2.up);
+        Move(menuTransform, startPosition, instantSpeed);
+        Move(shopTransform, rightPos, instantSpeed);
+        Move(topBarTransform, topPos, instantSpeed);
+        Move(toShopSignTransform, bottomPos, instantSpeed);
     }
 
     [ProButton]
     public void ShowGame()
     {
-        Move(menuTransform, Vector2.left);
-        Move(shopTransform, Vector2.right);
-        Move(topBarTransform, Vector2.zero);
-    }
+        Move(menuTransform, leftPos);
+        Move(shopTransform, rightPos);
+        Move(topBarTransform, startPosition);
+		Move (toShopSignTransform, startPosition);
+	}
 
     [ProButton]
     public void ShowShop()
     {
-        Move(menuTransform, Vector2.left);
-        Move(shopTransform, Vector2.zero);
-        Move(topBarTransform, Vector2.zero);
-    }
+        Move(menuTransform, leftPos);
+        Move(shopTransform, startPosition);
+        Move(topBarTransform, startPosition);
+		Move (toShopSignTransform, bottomPos);
+	}
 }
