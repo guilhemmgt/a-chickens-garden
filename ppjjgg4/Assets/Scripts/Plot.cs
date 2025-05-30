@@ -70,10 +70,26 @@ public class Plot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (plant != null)
+        Plant currentPlant = ChoiceHandler.Instance.GetCurrentPlant();
+
+        if (plant == null)
         {
-            Debug.Log("Plot " + i + "," + j + " clicked, plant: " + plant.name);
-            RemovePlant();
+            // Want to plant a new plant
+            if (ChoiceHandler.Instance.HasCurrentPlant())
+            {
+                if (ChoiceHandler.Instance.TryPlantCurrent(this))
+                {
+                    Debug.Log("Plot " + i + "," + j + " clicked, planted " + currentPlant.name);
+                }
+                else
+                {
+                    Debug.Log("Plot " + i + "," + j + " clicked, failed to plant current plant");
+                }
+            }
+            else
+            {
+                Debug.Log("Plot " + i + "," + j + " clicked, no current plant selected");
+            }
         }
         else
         {

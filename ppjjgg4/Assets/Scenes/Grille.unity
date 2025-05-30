@@ -5354,6 +5354,7 @@ Transform:
   m_Children:
   - {fileID: 173399510}
   - {fileID: 354151109}
+  - {fileID: 738290686}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &867581976
@@ -8455,7 +8456,7 @@ GameObject:
   - component: {fileID: 1619338837}
   - component: {fileID: 1619338836}
   m_Layer: 5
-  m_Name: Image
+  m_Name: PreviewImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

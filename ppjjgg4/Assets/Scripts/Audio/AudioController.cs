@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/**
+ * AudioController is a singleton class that manages audio playback in the game.
+ * It handles background music and sound effects, ensuring only one instance exists.
+ * To add new sound effects: add audioClip param and method associated with it.
+ */
 public class AudioController : MonoBehaviour
 {
     [Header("Hyper parameters")]
     [SerializeField] private float volume = 0.5f;
 
     [Header("Sound Effects")]
-    [SerializeField] private AudioClip cardSwitching;
+    [SerializeField] private AudioClip plantingClip;
 
     private AudioSource soundEffectsSource;
     private AudioSource backgroundMusicSource;
@@ -67,6 +72,20 @@ public class AudioController : MonoBehaviour
         lastLoadedScene = SceneManager.GetActiveScene().name;
     }
 
+    public void ChangeVolume(float newVolume)
+    {
+        volume = newVolume;
+        if (backgroundMusicSource != null)
+        {
+            backgroundMusicSource.volume = volume;
+        }
+
+        if (soundEffectsSource != null)
+        {
+            soundEffectsSource.volume = volume;
+        }
+    }
+
     public void StopSound()
     {
         // Arrêtez tous les bruitages en cours
@@ -117,6 +136,11 @@ public class AudioController : MonoBehaviour
         }
     }
 
+    public void PlayPlantingSound()
+    {
+        MakeSound(plantingClip, volume);
+    }
+
     public void StopBackgroundMusic()
     {
         if (backgroundMusicSource.isPlaying)
@@ -127,7 +151,7 @@ public class AudioController : MonoBehaviour
 
     public void MakeCardSwitchingSound()
     {
-        MakeSound(cardSwitching, 0.5f, 0.5f, 1.5f);
+        MakeSound(plantingClip, 0.5f, 0.5f, 1.5f);
     }
 
     // Rajoute des paramètres pour modifier un peu le son de manière aléatoire
