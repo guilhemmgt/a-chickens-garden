@@ -55,7 +55,15 @@ public class ShopSlot : MonoBehaviour
     // Close slot after plant was chosen today
     public void Close()
     {
-        imagePreview.color = Color.gray;
+        if (isOpen)
+        {
+            imagePreview.color = Color.gray;
+        }
+        else
+        {
+            imagePreview.color = Color.black;
+        }
+        isOpen = false;
     }
 
     [ProButton]

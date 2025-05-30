@@ -21,12 +21,12 @@ public class Shop : MonoBehaviour
     [ProButton]
     public void Open()
     {
-        commonSlot.Open();
-        if (!rareSlot.isOpen && rareUnlockScore <= GameManager.Instance.score) rareSlot.Open();
-        if (!uniqueSlot.isOpen && uniqueUnlockScore <= GameManager.Instance.score) uniqueSlot.Open();
-
         if (!hasBeenRolledToday)
         {
+            commonSlot.Open();
+            if (!rareSlot.isOpen && rareUnlockScore <= GameManager.Instance.score) rareSlot.Open();
+            if (!uniqueSlot.isOpen && uniqueUnlockScore <= GameManager.Instance.score) uniqueSlot.Open();
+
             Roll();
             hasBeenRolledToday = true;
         }
@@ -44,6 +44,14 @@ public class Shop : MonoBehaviour
     {
         slot.imagePreview.color = Color.gold;
         ChoiceHandler.Instance.SetCurrentPlant(plant);
+        CloseShop();
+    }
+
+    public void CloseShop()
+    {
+        commonSlot.Close();
+        rareSlot.Close();
+        uniqueSlot.Close();
     }
 
 }
