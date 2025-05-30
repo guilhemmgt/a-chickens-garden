@@ -5781,7 +5781,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
+  m_fontSize: 98.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6289,8 +6289,8 @@ MonoBehaviour:
   menuTransform: {fileID: 1800626140}
   topBarTransform: {fileID: 1105506739}
   shopTransform: {fileID: 272088689}
-  moveDuration: 2
-  moveEase: 1
+  moveDuration: 1
+  moveEase: 27
 --- !u!1 &789188191
 GameObject:
   m_ObjectHideFlags: 0
@@ -7720,8 +7720,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.878, y: 420.62}
-  m_SizeDelta: {x: 1789.755, y: 166.761}
+  m_AnchoredPosition: {x: -200.98843, y: 484.75354}
+  m_SizeDelta: {x: 1518.023, y: 109.554}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1117199106
 MonoBehaviour:
