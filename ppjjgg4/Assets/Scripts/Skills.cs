@@ -11,14 +11,44 @@ public class SharingIsCaring : Skill
 
     public override string Description => "+10 score for every flower in the garden.";
 
+    public override void SetOwner(Plant plant)
+    {
+        base.SetOwner(plant);
+        Garden.OnPlantMatured += OnPlantMatured;
+    }
+
+    public override void OnRemoved()
+    {
+        base.OnRemoved();
+        Garden.OnPlantMatured -= OnPlantMatured;
+    }
+
     public override void OnMature()
     {
+        base.OnMature();
+        UpdateSkill();
+    }
+
+    private void OnPlantMatured(Plot plot, Plant plant)
+    {
+        if (owner.hasMatured && plant != owner)
+        {
+            AddEffect(new(Effect.Flag.Score10, this, new() { plot }), owner.plot);
+            GameManager.Instance.UpdateScore();
+        }
+    }
+
+    private void UpdateSkill()
+    {
+        if (!owner.hasMatured) return;
+        foreach (Effect effect in effect_table.Keys) RemoveEffect(effect);
         Garden garden = Garden.Instance;
         for (int i = 0; i < garden.height; i++)
         {
             for (int j = 0; j < garden.width; j++)
             {
-                if (i != owner.plot.i && j != owner.plot.j) AddEffect(new(Effect.Flag.Score10, this, new()), garden.GetPlot(i, j));
+                Plot plot = garden.GetPlot(i, j);
+                if (plot != owner.plot && plot.plant != null && plot.plant.hasMatured) AddEffect(new(Effect.Flag.Score10, this, new() { plot }), owner.plot);
             }
         }
         GameManager.Instance.UpdateScore();
@@ -262,5 +292,93 @@ public class ToxicLove : Skill
             }
         }
         GameManager.Instance.UpdateScore();
+    }
+}
+
+public class Silence : Skill
+{
+    public override string Name => "Silence";
+
+    public override string Description => "Negates effects of surrounding flowers.";
+
+    public override void SetOwner(Plant plant)
+    {
+        base.SetOwner(plant);
+        foreach (Plot plot in Garden.Instance.GetNeighbours(owner.plot.i, owner.plot.j))
+            AddEffect(new(Effect.Flag.EffectCancelled, this, new()), plot);
+    }
+}
+
+public class LeaderOfFlowers : Skill
+{
+    public override string Name => "Leader of Flowers";
+
+    public override string Description => "+100 score if surrounded by 8 different flowers.";
+
+    public override void SetOwner(Plant plant)
+    {
+        base.SetOwner(plant);
+        Garden.OnPlantMatured += OnPlantMatured;
+    }
+
+    public override void OnRemoved()
+    {
+        base.OnRemoved();
+        Garden.OnPlantMatured -= OnPlantMatured;
+    }
+
+    private void OnPlantMatured(Plot plot, Plant plant)
+    {
+        UpdateSkill();
+    }
+
+    private void UpdateSkill()
+    {
+        if (!owner.hasMatured) return;
+        foreach (Effect effect in effect_table.Keys) RemoveEffect(effect);
+        List<Plot> neighbours = Garden.Instance.GetNeighbours(owner.plot.i, owner.plot.j);
+        int n_species = neighbours.Where(p => p.plant != null).Select(p => p.plant.Species).Distinct().Count();
+        Debug.Log("N SPECIES");
+        Debug.Log(n_species);
+        if (n_species == 8)
+        {
+            AddEffect(new(Effect.Flag.Score100, this, new(neighbours)), owner.plot);
+            GameManager.Instance.UpdateScore();
+        }
+    }
+}
+
+public class LonelyBloom : Skill
+{
+    public override string Name => "Lonely Bloom";
+
+    public override string Description => "-10 score for every surrounding flower.";
+
+    public override void SetOwner(Plant plant)
+    {
+        base.SetOwner(plant);
+        Garden.OnPlantMatured += OnPlantMatured;
+    }
+
+    public override void OnRemoved()
+    {
+        base.OnRemoved();
+        Garden.OnPlantMatured -= OnPlantMatured;
+    }
+
+    private void OnPlantMatured(Plot plot, Plant plant)
+    {
+        UpdateSkill();
+    }
+
+    private void UpdateSkill()
+    {
+        if (!owner.hasMatured) return;
+        foreach (Effect effect in effect_table.Keys) RemoveEffect(effect);
+        List<Plot> neighbours = Garden.Instance.GetNeighbours(owner.plot.i, owner.plot.j);
+        foreach (Plot plot in neighbours)
+        {
+            if (!(plot.plant == null)) AddEffect(new(Effect.Flag.ScoreM10, this, new() { plot }), owner.plot);
+        }
     }
 }
