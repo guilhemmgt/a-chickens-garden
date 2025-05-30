@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using com.cyborgAssets.inspectorButtonPro;
@@ -8,7 +9,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SocialPlatforms.Impl;
 
-public class Plot : MonoBehaviour, IPointerClickHandler
+public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Action<Plant> OnPlantEnter;
     public Action<Plant> OnPlantMatured;
@@ -24,7 +25,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler
     public int i { get; set; }
     public int j { get; set; }
 
-    [field : SerializeField] public List<Effect> effects { get; private set; }
+    [field: SerializeField] public List<Effect> effects { get; private set; }
     [SerializeField] private Type type = Type.Soil;
     private SpriteRenderer sr => transform.GetChild(0).GetComponent<SpriteRenderer>();
     [field: SerializeField] public Plant plant { get; private set; }
@@ -48,6 +49,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler
         sr.sprite = this.plant.Sprite;
         OnPlantEnter?.Invoke(this.plant);
         Garden.OnPlantEnter?.Invoke(this, this.plant);
+        PreviewController.Instance.UpdateInfo(GetInfoPlot());
     }
 
     [ProButton]
@@ -62,6 +64,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler
             Destroy(plant);
             plant = null;
             GameManager.Instance.UpdateScore();
+            sr.sprite = null; // Reset sprite to default, TODO: add default sprite for empty plots
         }
     }
 
@@ -99,6 +102,11 @@ public class Plot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (GameManager.GameState != GameState.Planting)
+        {
+            return; // Can only plant in Planting state
+        }
+
         Plant currentPlant = ChoiceHandler.Instance.GetCurrentPlant();
 
         if (plant == null)
@@ -126,6 +134,54 @@ public class Plot : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    
-    
+    #region Inspector Methods
+    public float timeBeforeShowBubble = 2f; // Time in seconds before showing the bubble
+
+    private IEnumerator currentCoroutine = null;
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("Plot " + i + "," + j + " hovered, showing bubble");
+        if (GameManager.GameState == GameState.Menu)
+        {
+            return; // Do not show bubble in menu state
+        }
+        currentCoroutine = ShowBubbleAfterDelay();
+        StartCoroutine(currentCoroutine); // Start the coroutine to show the bubble after a delay
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        PreviewController.Instance.HideBubble();
+        if (currentCoroutine != null)
+            StopCoroutine(currentCoroutine); // Stop the coroutine if the pointer exits before the delay
+        currentCoroutine = null;
+    }
+
+    public IEnumerator ShowBubbleAfterDelay()
+    {
+        yield return new WaitForSeconds(timeBeforeShowBubble);
+        PreviewController.Instance.ShowBubble(transform.position, GetInfoPlot());
+    }
+
+    public string GetInfoPlot()
+    {
+        string info = $"Plot ({i}, {j})\n";
+        //info += $"Type: {type}\n";
+        if (plant != null)
+        {
+            info += $"Plant: {plant.Species}\n";
+            info += $"Day passed: {plant.day}\n";
+            //info += $"Has matured: {plant.hasMatured}\n";
+            info += $"Plant Score: {plant.GetScore()}\n";
+            info += $"Total score: {GetPlotScore()} \n";
+        }
+        else
+        {
+            info += "No plant\n";
+        }
+        return info;
+    }
+
+    #endregion
 }

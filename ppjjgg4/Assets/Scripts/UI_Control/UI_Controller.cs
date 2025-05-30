@@ -18,10 +18,10 @@ public class UI_Controller : MonoBehaviour
 
 	private Vector3 startPosition;
 
-    private Vector3 leftPos = new Vector3 (-221, -9, 90);
-    private Vector3 rightPos = new Vector3 (355, -9, 90);
-    private Vector3 topPos = new Vector3 (69, 156, 90);
-    private Vector3 bottomPos = new Vector3 (69, -173, 90);
+    private Vector3 leftPos = new Vector3 (-285, 0, 90);
+    private Vector3 rightPos = new Vector3 (285, 0, 90);
+    private Vector3 topPos = new Vector3 (0, 160, 90);
+    private Vector3 bottomPos = new Vector3 (0, -160, 90);
 
     void Start()
     {
@@ -42,6 +42,7 @@ public class UI_Controller : MonoBehaviour
     [ProButton]
     public void ShowMenu (bool instantSpeed = false)
     {
+        GameManager.GameState = GameState.Menu;
         Move(menuTransform, startPosition, instantSpeed);
         Move(shopTransform, rightPos, instantSpeed);
         Move(topBarTransform, topPos, instantSpeed);
@@ -54,7 +55,9 @@ public class UI_Controller : MonoBehaviour
         Move(menuTransform, leftPos);
         Move(shopTransform, rightPos);
         Move(topBarTransform, startPosition);
-		Move (toShopSignTransform, startPosition);
+        Move(toShopSignTransform, startPosition);
+        
+        GameManager.GameState = GameState.Planting;
 	}
 
     [ProButton]
@@ -63,6 +66,8 @@ public class UI_Controller : MonoBehaviour
         Move(menuTransform, leftPos);
         Move(shopTransform, startPosition);
         Move(topBarTransform, startPosition);
-		Move (toShopSignTransform, bottomPos);
+        Move(toShopSignTransform, bottomPos);
+        
+        GameManager.GameState = GameState.Shop;
 	}
 }

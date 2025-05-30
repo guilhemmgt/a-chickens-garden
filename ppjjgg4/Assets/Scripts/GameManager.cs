@@ -1,14 +1,23 @@
 using com.cyborgAssets.inspectorButtonPro;
 using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+
+public enum GameState
+{
+    Menu,
+    Planting,
+    Shop,
+}
 
 public class GameManager : MonoBehaviour
 {
     public static event Action OnDayEnded;
     public static GameManager Instance;
 
+    public static GameState GameState { get; set; } = GameState.Menu;
+
+    [SerializeField] private TextMeshProUGUI tmp;
     private int day;
     public int score;
 
@@ -20,19 +29,18 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
-        
     }
 
     private void Start()
     {
         InitGame();
+        UpdateScore();
     }
 
     public void InitGame()
     {
         day = 1;
         score = 0;
-        UpdateScore();
     }
 
     [ProButton]
