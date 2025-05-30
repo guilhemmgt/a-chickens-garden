@@ -47,7 +47,7 @@ public class GridController : MonoBehaviour
             {
                 GameObject cell = Instantiate(gridCellPrefab, transform);
 
-                Plot plot = cell.AddComponent<Plot>();
+                Plot plot = cell.GetComponent<Plot>();
                 plot.i = i;
                 plot.j = j;
 
