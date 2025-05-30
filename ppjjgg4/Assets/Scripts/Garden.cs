@@ -8,6 +8,7 @@ using UnityEngine;
 public class Garden : MonoBehaviour
 {
     public static Action<Plot, Plant> OnPlantEnter;
+    public static Action<Plot, Plant> OnPlantMatured;
     public static Action<Plot, Plant> OnPlantExit;
     public static Garden Instance { get; private set; }
     [field : SerializeField] public int width { get; private set; } = 6;
@@ -25,6 +26,7 @@ public class Garden : MonoBehaviour
         }
         Instance = this;
         OnPlantEnter = null;
+        OnPlantMatured = null;
         OnPlantExit = null;
         StoreChildrenToCellsArray();
     }
@@ -64,8 +66,6 @@ public class Garden : MonoBehaviour
             Debug.LogError($"Invalid plot coordinates: ({i}, {j})");
             return null;
         }
-        Debug.Log("PLOT");
-        Debug.Log(plots[i, j]);
         return plots[i, j];
     }
 

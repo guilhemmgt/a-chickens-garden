@@ -8,8 +8,9 @@ using UnityEngine.EventSystems;
 
 public class Plot : MonoBehaviour, IPointerClickHandler
 {
-    public event Action<Plant> OnPlantEnter;
-    public event Action<Plant> OnPlantExit;
+    public Action<Plant> OnPlantEnter;
+    public Action<Plant> OnPlantMatured;
+    public Action<Plant> OnPlantExit;
     public enum Type { Rock, Soil }
     public static Plot Instantiate(int i, int j)
     {

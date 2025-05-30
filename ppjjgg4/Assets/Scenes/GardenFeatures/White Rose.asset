@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6319a14f98a1043eeae1ab7ac6957ee9, type: 3}
-  m_Name: Rose
+  m_Name: White Rose
   m_EditorClassIdentifier: 
-  <Species>k__BackingField: Rose
+  <Species>k__BackingField: 
   description: 
-  sprites:
-  - {fileID: 7366617892383084551, guid: 536a90a7c8fc347ebbbd5e972ba48391, type: 3}
-  score: 10
+  sprites: []
+  score: 1
   growthTime: 3
   <plot>k__BackingField: {fileID: 0}
   skill:
