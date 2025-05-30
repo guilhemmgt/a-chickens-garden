@@ -382,3 +382,24 @@ public class LonelyBloom : Skill
         }
     }
 }
+
+public class StrongWill : Skill
+{
+    public override string Name => "Strong Will";
+
+    public override string Description => "+1 score every day. Maximum +20.";
+
+    private int count;
+
+    public override void SetOwner(Plant plant)
+    {
+        base.SetOwner(plant);
+        count = 0;
+    }
+
+    public override void OnDayEnd()
+    {
+        base.OnDayEnd();
+        if (owner.hasMatured && count < 20) AddEffect(new(Effect.Flag.Score1, this, new()), owner.plot);
+    }
+}
