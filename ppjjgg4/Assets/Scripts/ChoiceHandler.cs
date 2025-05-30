@@ -48,7 +48,6 @@ public class ChoiceHandler : MonoBehaviour
         if (currentPlant != null)
         {
             Debug.LogWarning("Replacing current plant: " + currentPlant.name + " with " + plant.name);
-            currentPlant.OnRemoved();
         }
         currentPlant = plant;
         currentPlantImage.sprite = currentPlant.Sprite; // Update UI image
@@ -70,7 +69,8 @@ public class ChoiceHandler : MonoBehaviour
         plot.AddPlant(currentPlant);
         AudioController.Instance.PlayPlantingSound(); // Play sound effect when setting a new plant
 
-        //currentPlant = null; // Clear current plant after planting
+        currentPlant = null; // Clear current plant after planting
+        currentPlantImage.sprite = null; // Clear UI image
         return true;
     }
 }

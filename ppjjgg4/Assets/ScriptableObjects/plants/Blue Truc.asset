@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Species>k__BackingField: Blue Truc
   description: 
-  sprite: {fileID: -8188909564941553941, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
+  matureSprite: {fileID: -8188909564941553941, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
   score: 10
   growthTime: 3
   <plot>k__BackingField: {fileID: 0}
