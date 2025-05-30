@@ -12,18 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6319a14f98a1043eeae1ab7ac6957ee9, type: 3}
   m_Name: Rampants
   m_EditorClassIdentifier: 
-  <Species>k__BackingField: 
+  <Species>k__BackingField: Rampants
   description: 
-  sprites: []
-  score: 1
+  sprites:
+  - {fileID: -6196419796024163417, guid: dbd3edf4ad2764949ab8569ae145503a, type: 3}
+  score: 50
   growthTime: 3
   <plot>k__BackingField: {fileID: 0}
   skill:
-    rid: -2
+    rid: 9152124369841160267
   day: 0
   hasMatured: 0
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 9152124369841160267
+      type: {class: Silence, ns: , asm: Assembly-CSharp}
+      data: 

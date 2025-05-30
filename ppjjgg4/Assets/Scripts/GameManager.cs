@@ -1,6 +1,7 @@
 using com.cyborgAssets.inspectorButtonPro;
 using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -19,6 +20,11 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
+        
+    }
+
+    private void Start()
+    {
         InitGame();
     }
 
@@ -26,8 +32,8 @@ public class GameManager : MonoBehaviour
     {
         day = 1;
         score = 0;
-        UpdateScore ();
-	}
+        UpdateScore();
+    }
 
     [ProButton]
     public void EndDay()
@@ -43,6 +49,6 @@ public class GameManager : MonoBehaviour
 
         TopBarView.Instance.SetScore(newScore);
         TopBarView.Instance.SetDay (day);
-        //TopBarView.Instance.SetEventSprite (...); // TODO : ajout évents
+        //TopBarView.Instance.SetEventSprite (...); // TODO : ajout ï¿½vents
     }
 }
