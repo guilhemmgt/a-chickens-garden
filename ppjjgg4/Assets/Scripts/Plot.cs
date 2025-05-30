@@ -97,6 +97,11 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (GameManager.GameState != GameState.Planting)
+        {
+            return; // Can only plant in Planting state
+        }
+
         Plant currentPlant = ChoiceHandler.Instance.GetCurrentPlant();
 
         if (plant == null)
@@ -125,7 +130,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
 
     #region Inspector Methods
-    public float timeBeforeShowBubble = 1.5f; // Time in seconds before showing the bubble
+    public float timeBeforeShowBubble = 3f; // Time in seconds before showing the bubble
     private float bubbleTimer = 0f; // Timer to track time before showing the bubble
 
     private IEnumerator currentCoroutine = null;
@@ -144,7 +149,9 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public void OnPointerExit(PointerEventData eventData)
     {
         PreviewController.Instance.HideBubble();
-        StopCoroutine(currentCoroutine); // Stop the coroutine if the pointer exits before the delay
+        bubbleTimer = 0f; // Reset the timer when pointer exits
+        if (currentCoroutine != null)
+            StopCoroutine(currentCoroutine); // Stop the coroutine if the pointer exits before the delay
         currentCoroutine = null;
     }
 
