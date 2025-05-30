@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using com.cyborgAssets.inspectorButtonPro;
 using Unity.VisualScripting;
 using Unity.XR.GoogleVr;
@@ -58,6 +59,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         {
             plant.OnRemoved();
             OnPlantExit?.Invoke(plant);
+            OnPlantExit = null;
             Garden.OnPlantExit?.Invoke(this, plant);
             Destroy(plant);
             plant = null;
@@ -85,10 +87,13 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             // Score de la plante
             score += plant.GetScore();
 
-            // Score des buffs
-            foreach (Effect effect in effects)
+            if (effects.Where(e => e.flag == Effect.Flag.EffectCancelled).Count() == 0)
             {
-                score += Effect.GetFlagScore(effect.flag);
+                // Score des buffs
+                foreach (Effect effect in effects)
+                {
+                    score += Effect.GetFlagScore(effect.flag);
+                }
             }
         }
 

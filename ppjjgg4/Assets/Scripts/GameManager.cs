@@ -29,7 +29,12 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+
+    private void Start()
+    {
         InitGame();
+        UpdateScore();
     }
 
     public void InitGame()
@@ -50,10 +55,9 @@ public class GameManager : MonoBehaviour
     {
         int newScore = Garden.Instance.GetScore();
 
-        tmp.text = $"Day {day} - Score: {newScore}"; //TODO: temporary placement for day display
-        Debug.Log($"Day {day} - Score: {newScore}");
-
-
+        TopBarView.Instance.SetScore(newScore);
+        TopBarView.Instance.SetDay (day);
+        //TopBarView.Instance.SetEventSprite (...); // TODO : ajout �vents
 
     }
 }

@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6319a14f98a1043eeae1ab7ac6957ee9, type: 3}
-  m_Name: White Rose
+  m_Name: Rampants
   m_EditorClassIdentifier: 
-  <Species>k__BackingField: White Rose
+  <Species>k__BackingField: Rampants
   description: 
   sprites:
-  - {fileID: 6480382868903045031, guid: 8dc22e395dcd0de77971332a902dcf17, type: 3}
-  score: 30
+  - {fileID: -6196419796024163417, guid: dbd3edf4ad2764949ab8569ae145503a, type: 3}
+  score: 50
   growthTime: 3
   <plot>k__BackingField: {fileID: 0}
   skill:
-    rid: 9152124369841160266
+    rid: 9152124369841160267
   day: 0
   hasMatured: 0
   references:
     version: 2
     RefIds:
-    - rid: 9152124369841160266
-      type: {class: ToxicLove, ns: , asm: Assembly-CSharp}
+    - rid: 9152124369841160267
+      type: {class: Silence, ns: , asm: Assembly-CSharp}
       data: 
