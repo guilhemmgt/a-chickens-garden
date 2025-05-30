@@ -400,6 +400,10 @@ public class StrongWill : Skill
     public override void OnDayEnd()
     {
         base.OnDayEnd();
-        if (owner.hasMatured && count < 20) AddEffect(new(Effect.Flag.Score1, this, new()), owner.plot);
-    }
+        if (owner.hasMatured && count < 20)
+        {
+            AddEffect(new(Effect.Flag.Score1, this, new()), owner.plot);
+            count++;
+        }      
+        }
 }

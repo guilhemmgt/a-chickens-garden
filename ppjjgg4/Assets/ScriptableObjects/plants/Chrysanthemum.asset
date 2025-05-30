@@ -10,22 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6319a14f98a1043eeae1ab7ac6957ee9, type: 3}
-  m_Name: Azure Crown
+  m_Name: Chrysanthemum
   m_EditorClassIdentifier: 
-  <Species>k__BackingField: Azure Crown
+  <Species>k__BackingField: Chrysanthemum
   description: 
-  sprites:
-  - {fileID: 9098124368499821579, guid: 61c18e659fd13164d9dcf98ec67ca4b4, type: 3}
-  score: 30
+  sprite: {fileID: 1222284698, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
+  score: 10
   growthTime: 3
   <plot>k__BackingField: {fileID: 0}
   skill:
-    rid: 9152124369841160268
+    rid: 9152124380754214985
   day: 0
   hasMatured: 0
+  seedSprite: {fileID: 2294204801877065548, guid: b8672d6dfd942014aac8b522878fccdb, type: 3}
+  shootSprite: {fileID: 6014301334660670223, guid: b8672d6dfd942014aac8b522878fccdb, type: 3}
   references:
     version: 2
     RefIds:
-    - rid: 9152124369841160268
-      type: {class: LeaderOfFlowers, ns: , asm: Assembly-CSharp}
+    - rid: 9152124380754214985
+      type: {class: StrongWill, ns: , asm: Assembly-CSharp}
       data: 
