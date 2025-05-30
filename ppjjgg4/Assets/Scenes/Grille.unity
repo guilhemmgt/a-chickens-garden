@@ -1796,7 +1796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 622b05e8a87c5544683d251ba27d76c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPlant: {fileID: 11400000, guid: a145be4f481d8290f95b9e48a3397e41, type: 2}
+  currentPlant: {fileID: 11400000, guid: fd45e07a7f78e1c41b5e46a44e488c37, type: 2}
   currentPlantImage: {fileID: 1619338836}
 --- !u!1 &332221487
 GameObject:
@@ -9198,6 +9198,7 @@ RectTransform:
   m_Children:
   - {fileID: 14349736}
   - {fileID: 119947122}
+  - {fileID: 1402318361}
   m_Father: {fileID: 334484426}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -11051,7 +11052,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 729799356}
-  m_Father: {fileID: 1431445177}
+  m_Father: {fileID: 1169726683}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -11265,7 +11266,6 @@ RectTransform:
   - {fileID: 966040873}
   - {fileID: 687778591}
   - {fileID: 125957647}
-  - {fileID: 1402318361}
   m_Father: {fileID: 334484426}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
