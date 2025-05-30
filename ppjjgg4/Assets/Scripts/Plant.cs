@@ -51,5 +51,10 @@ public class Plant : ScriptableObject
         Species = name;
     }
 
+    public int GetScore()
+    {
+        return score;
+    }
+
 
 }

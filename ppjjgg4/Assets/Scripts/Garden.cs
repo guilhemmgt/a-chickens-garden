@@ -64,12 +64,9 @@ public class Garden : MonoBehaviour
             Debug.LogError($"Invalid plot coordinates: ({i}, {j})");
             return null;
         }
-        Debug.Log("PLOT");
-        Debug.Log(plots[i, j]);
         return plots[i, j];
     }
 
-    [ProButton]
     public void EndDay()
     {
         for (int i = 0; i < height; i++)
@@ -107,5 +104,15 @@ public class Garden : MonoBehaviour
     public void OnDisable()
     {
         GameManager.OnDayEnded -= EndDay;
+    }
+
+    public int GetScore()
+    {
+        int score = 0;
+        foreach (Plot plot in plots)
+        {
+            score += plot.GetPlotScore();
+        }
+        return score;
     }
 }

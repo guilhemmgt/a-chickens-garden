@@ -31,4 +31,18 @@ public class Effect
         }
     }
 
+    public static int GetFlagScore(Flag flag)
+    {
+        return flag switch
+        {
+            Flag.Score10 => 10,
+            Flag.Score20 => 20,
+            Flag.Score40 => 40,
+            Flag.Score100 => 100,
+            Flag.ScoreM10 => -10,
+            Flag.ScoreM5 => -5,
+            _ => 0
+        };
+    }
+
 }

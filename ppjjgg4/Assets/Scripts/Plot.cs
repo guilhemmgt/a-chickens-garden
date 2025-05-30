@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using Unity.XR.GoogleVr;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Plot : MonoBehaviour, IPointerClickHandler
 {
@@ -70,6 +71,25 @@ public class Plot : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public int GetPlotScore()
+    {
+        int score = 0;
+
+        if (plant != null && plant.hasMatured)
+        {
+            // Score de la plante
+            score += plant.GetScore();
+
+            // Score des buffs
+            foreach (Effect effect in effects)
+            {
+                score += Effect.GetFlagScore(effect.flag);
+            }
+        }
+
+        return score;
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         Plant currentPlant = ChoiceHandler.Instance.GetCurrentPlant();
@@ -98,5 +118,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler
             Debug.Log("Plot " + i + "," + j + " clicked, no plant");
         }
     }
+
+    
     
 }
