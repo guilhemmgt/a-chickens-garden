@@ -218,7 +218,7 @@ public class ToxicLove : Skill
 {
     public override string Name => "Toxic Love";
 
-    public override string Description => "-5 score for each White Rose in the garden";
+    public override string Description => "-5 score for each White Rose in the garden.";
 
     public override void SetOwner(Plant plant)
     {
@@ -240,7 +240,7 @@ public class ToxicLove : Skill
 
     private void OnPlantMatured(Plot plot, Plant plant)
     {
-        if (plant.Species.Equals("White Rose") && plant != owner)
+        if (owner.hasMatured && plant.Species.Equals("White Rose"))
         {
             AddEffect(new(Effect.Flag.ScoreM5, this, new() { plot }), owner.plot);
             GameManager.Instance.UpdateScore();
@@ -257,7 +257,7 @@ public class ToxicLove : Skill
             for (int j = 0; j < garden.width; j++)
             {
                 Plot plot = garden.GetPlot(i, j);
-                if (i != owner.plot.i && j != owner.plot.j && plot.plant != null && plot.plant.hasMatured && plot.plant.Species.Equals("White Rose"))
+                if (plot.plant != null && plot.plant.hasMatured && plot != owner.plot && plot.plant.Species.Equals("White Rose"))
                     AddEffect(new(Effect.Flag.ScoreM5, this, new() { plot }), owner.plot);
             }
         }

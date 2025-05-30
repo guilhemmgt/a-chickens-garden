@@ -59,6 +59,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler
             Garden.OnPlantExit?.Invoke(this, plant);
             Destroy(plant);
             plant = null;
+            GameManager.Instance.UpdateScore();
         }
     }
 
