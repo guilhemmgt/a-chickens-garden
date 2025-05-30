@@ -8,9 +8,10 @@ public class UI_Controller : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private RectTransform menuTransform;
     [SerializeField] private RectTransform topBarTransform;
-    [SerializeField] private RectTransform shopTransform;
+	[SerializeField] private RectTransform shopTransform;
+	[SerializeField] private RectTransform toShopSignTransform;
 
-    [Header("Anim settings")]
+	[Header("Anim settings")]
     [SerializeField] private float moveDuration = 0.5f;
     [SerializeField] private Ease moveEase = Ease.Linear;
 	[SerializeField] private float overshoot = 0.25f;
@@ -20,29 +21,31 @@ public class UI_Controller : MonoBehaviour
     private Vector3 leftPos = new Vector3 (-221, -9, 90);
     private Vector3 rightPos = new Vector3 (355, -9, 90);
     private Vector3 topPos = new Vector3 (69, 156, 90);
+    private Vector3 bottomPos = new Vector3 (69, -173, 90);
 
     void Start()
     {
         startPosition = menuTransform.position;
 
-        // Shop déplacé hors écran à droite
-        shopTransform.position = rightPos;
+        ShowMenu (true);
 
-        // TopBar déplacée hors écran en haut
-        topBarTransform.position = leftPos;
-    }
+	}
 
-    public void Move(RectTransform targetTransform, Vector3 targetPosition)
+    public void Move (RectTransform targetTransform, Vector3 targetPosition, bool instantSpeed = false)
     {
-        targetTransform.DOMove (targetPosition, moveDuration).SetEase (moveEase, overshoot);
+        if (instantSpeed)
+            targetTransform.position = targetPosition;
+        else
+            targetTransform.DOMove (targetPosition, moveDuration).SetEase (moveEase, overshoot);
     }
 
     [ProButton]
-    public void ShowMenu()
+    public void ShowMenu (bool instantSpeed = false)
     {
-        Move(menuTransform, startPosition);
-        Move(shopTransform, rightPos);
-        Move(topBarTransform, topPos);
+        Move(menuTransform, startPosition, instantSpeed);
+        Move(shopTransform, rightPos, instantSpeed);
+        Move(topBarTransform, topPos, instantSpeed);
+        Move(toShopSignTransform, bottomPos, instantSpeed);
     }
 
     [ProButton]
@@ -51,13 +54,15 @@ public class UI_Controller : MonoBehaviour
         Move(menuTransform, leftPos);
         Move(shopTransform, rightPos);
         Move(topBarTransform, startPosition);
-    }
+		Move (toShopSignTransform, startPosition);
+	}
 
     [ProButton]
     public void ShowShop()
     {
         Move(menuTransform, leftPos);
         Move(shopTransform, startPosition);
-        Move(topBarTransform, topPos);
-    }
+        Move(topBarTransform, startPosition);
+		Move (toShopSignTransform, bottomPos);
+	}
 }
