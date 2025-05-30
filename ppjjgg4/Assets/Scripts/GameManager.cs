@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     public static event Action OnDayEnded;
     public static GameManager Instance;
 
-    [SerializeField] private TextMeshProUGUI tmp;
     private int day;
     private int score;
 
@@ -27,7 +26,8 @@ public class GameManager : MonoBehaviour
     {
         day = 1;
         score = 0;
-    }
+        UpdateScore ();
+	}
 
     [ProButton]
     public void EndDay()
@@ -41,10 +41,8 @@ public class GameManager : MonoBehaviour
     {
         int newScore = Garden.Instance.GetScore();
 
-        tmp.text = $"Day {day} - Score: {newScore}"; //TODO: temporary placement for day display
-        Debug.Log($"Day {day} - Score: {newScore}");
-
-
-
+        TopBarView.Instance.SetScore(newScore);
+        TopBarView.Instance.SetDay (day);
+        //TopBarView.Instance.SetEventSprite (...); // TODO : ajout évents
     }
 }

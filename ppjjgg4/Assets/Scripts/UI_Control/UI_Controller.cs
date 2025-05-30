@@ -24,7 +24,7 @@ public class UI_Controller : MonoBehaviour
     void Start()
     {
         startPosition = menuTransform.position;
-        Debug.Log (startPosition);
+
         // Shop déplacé hors écran à droite
         shopTransform.position = rightPos;
 
