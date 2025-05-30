@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6319a14f98a1043eeae1ab7ac6957ee9, type: 3}
+  m_Name: Hydrangea
+  m_EditorClassIdentifier: 
+  <Species>k__BackingField: Hydrangea
+  description: 
+  sprites:
+  - {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  score: 10
+  growthTime: 3
+  <plot>k__BackingField: {fileID: 0}
+  skill:
+    rid: 2255358501037277257
+  day: 0
+  hasMatured: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 2255358501037277257
+      type: {class: SharingIsCaring, ns: , asm: Assembly-CSharp}
+      data: 

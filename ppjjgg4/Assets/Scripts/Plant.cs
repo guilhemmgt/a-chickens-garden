@@ -8,12 +8,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Plant", menuName = "Garden/Plant")]
 public class Plant : ScriptableObject
 {
-
+    [field: SerializeField] public string Species { get; private set; }
     [TextArea(3, 5), SerializeField] private string description;
     [SerializeField] private List<Sprite> sprites;
     [SerializeField] private int score = 1;
     [SerializeField] private int growthTime = 3;
-    [field : SerializeField] public Plot plot { get; private set; }
+    [field: SerializeField] public Plot plot { get; private set; }
     [SerializeReference, SubclassPicker] ISkill skill;
     public int day;
     public bool hasMatured;
@@ -23,28 +23,33 @@ public class Plant : ScriptableObject
         day = 0;
         this.plot = plot;
         hasMatured = false;
-        skill.SetOwner(this);
+        skill?.SetOwner(this);
     }
 
     public void OnMature()
     {
         hasMatured = true;
-        skill.OnMature();
+        skill?.OnMature();
     }
 
     public void OnRemoved()
     {
-        skill.OnRemoved();
+        skill?.OnRemoved();
     }
 
     public void EndDay()
     {
         day++;
         if (!hasMatured && day >= growthTime) OnMature();
-        skill.OnDayEnd();
+        skill?.OnDayEnd();
     }
 
     public Sprite Sprite => sprites[Mathf.Min(sprites.Count - 1, day)];
+
+    private void OnValidate()
+    {
+        Species = name;
+    }
 
 
 }
