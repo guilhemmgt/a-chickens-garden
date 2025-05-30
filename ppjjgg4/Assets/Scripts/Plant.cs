@@ -29,6 +29,8 @@ public class Plant : ScriptableObject
     public void OnMature()
     {
         hasMatured = true;
+        plot.OnPlantMatured?.Invoke(this);
+        Garden.OnPlantMatured?.Invoke(plot, this);
         skill?.OnMature();
     }
 
@@ -49,6 +51,11 @@ public class Plant : ScriptableObject
     private void OnValidate()
     {
         Species = name;
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 
 

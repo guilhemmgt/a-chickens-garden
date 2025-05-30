@@ -5,11 +5,13 @@ using Unity.VisualScripting;
 using Unity.XR.GoogleVr;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Plot : MonoBehaviour, IPointerClickHandler
 {
-    public event Action<Plant> OnPlantEnter;
-    public event Action<Plant> OnPlantExit;
+    public Action<Plant> OnPlantEnter;
+    public Action<Plant> OnPlantMatured;
+    public Action<Plant> OnPlantExit;
     public enum Type { Rock, Soil }
     public static Plot Instantiate(int i, int j)
     {
@@ -57,6 +59,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler
             Garden.OnPlantExit?.Invoke(this, plant);
             Destroy(plant);
             plant = null;
+            GameManager.Instance.UpdateScore();
         }
     }
 
@@ -68,6 +71,25 @@ public class Plot : MonoBehaviour, IPointerClickHandler
             plant.EndDay();
             sr.sprite = plant.Sprite;
         }
+    }
+
+    public int GetPlotScore()
+    {
+        int score = 0;
+
+        if (plant != null && plant.hasMatured)
+        {
+            // Score de la plante
+            score += plant.GetScore();
+
+            // Score des buffs
+            foreach (Effect effect in effects)
+            {
+                score += Effect.GetFlagScore(effect.flag);
+            }
+        }
+
+        return score;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -98,5 +120,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler
             Debug.Log("Plot " + i + "," + j + " clicked, no plant");
         }
     }
+
+    
     
 }
