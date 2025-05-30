@@ -23,7 +23,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler
 
     [field : SerializeField] public List<Effect> effects { get; private set; }
     [SerializeField] private Type type = Type.Soil;
-    private SpriteRenderer sr => GetComponent<SpriteRenderer>();
+    private SpriteRenderer sr => transform.GetChild(0).GetComponent<SpriteRenderer>();
     [field: SerializeField] public Plant plant { get; private set; }
 
 
