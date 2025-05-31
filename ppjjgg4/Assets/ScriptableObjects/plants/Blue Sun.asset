@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6319a14f98a1043eeae1ab7ac6957ee9, type: 3}
+  m_Name: Blue Sun
+  m_EditorClassIdentifier: 
+  <Species>k__BackingField: Blue Sun
+  description: 
+  matureSprite: {fileID: -8873626391699258573, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
+  score: 10
+  growthTime: 3
+  <plot>k__BackingField: {fileID: 0}
+  skill:
+    rid: 9152124354369421389
+  day: 0
+  hasMatured: 0
+  seedSprite: {fileID: 2294204801877065548, guid: b8672d6dfd942014aac8b522878fccdb, type: 3}
+  shootSprite: {fileID: 6014301334660670223, guid: b8672d6dfd942014aac8b522878fccdb, type: 3}
+  references:
+    version: 2
+    RefIds:
+    - rid: 9152124354369421389
+      type: {class: LookingForTheMoon, ns: , asm: Assembly-CSharp}
+      data: 

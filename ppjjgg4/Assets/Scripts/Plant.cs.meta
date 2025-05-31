@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6319a14f98a1043eeae1ab7ac6957ee9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - sprite: {instanceID: 0}
+  - <plot>k__BackingField: {instanceID: 0}
+  - seedSprite: {fileID: 2294204801877065548, guid: b8672d6dfd942014aac8b522878fccdb, type: 3}
+  - shootSprite: {fileID: 6014301334660670223, guid: b8672d6dfd942014aac8b522878fccdb, type: 3}
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 536a90a7c8fc347ebbbd5e972ba48391, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
