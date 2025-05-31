@@ -11,11 +11,17 @@ using UnityEngine.SceneManagement;
 public class AudioController : MonoBehaviour
 {
     [Header("Hyper parameters")]
-    [SerializeField] private float volume = 0.5f;
+    [Range(0f, 1f)]
+    [SerializeField] private float volumeSFX = 0.5f;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float volumeBackgroundMusic = 0.5f;
+
 
     [Header("Sound Effects")]
     [SerializeField] private AudioClip plantingClip;
     [SerializeField] private AudioClip buttonClickClip;
+    [SerializeField] private AudioClip shovelClip;
 
     private AudioSource soundEffectsSource;
     private AudioSource backgroundMusicSource;
@@ -57,7 +63,7 @@ public class AudioController : MonoBehaviour
 
         backgroundMusicSource.loop = true;
         backgroundMusicSource.playOnAwake = true;
-        backgroundMusicSource.volume = volume;
+        backgroundMusicSource.volume = volumeBackgroundMusic;
 
         DontDestroyOnLoad(gameObject);
 
@@ -75,15 +81,15 @@ public class AudioController : MonoBehaviour
 
     public void ChangeVolume(float newVolume)
     {
-        volume = newVolume;
+        volumeBackgroundMusic = newVolume;
         if (backgroundMusicSource != null)
         {
-            backgroundMusicSource.volume = volume;
+            backgroundMusicSource.volume = volumeBackgroundMusic;
         }
 
         if (soundEffectsSource != null)
         {
-            soundEffectsSource.volume = volume;
+            soundEffectsSource.volume = volumeSFX;
         }
     }
 
@@ -139,12 +145,17 @@ public class AudioController : MonoBehaviour
 
     public void PlayPlantingSound()
     {
-        MakeSound(plantingClip, volume);
+        MakeSound(plantingClip, volumeSFX);
     }
 
     public void PlayButtonClickSound()
     {
-        MakeSound(buttonClickClip, 0.5f, 0.5f, 1.5f);
+        MakeSound(buttonClickClip, volumeSFX, 0.5f, 1.5f);
+    }
+
+    public void PlayShovelSound()
+    {
+        MakeSound(shovelClip, volumeSFX, 0.8f, 1.2f);
     }
 
     public void PlaySFXInParallel(AudioClip audioClip, float volume = 0.5f)

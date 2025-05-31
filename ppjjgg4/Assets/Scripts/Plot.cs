@@ -25,6 +25,8 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public int i { get; set; }
     public int j { get; set; }
 
+    [SerializeField] private Sprite defaultSprite = null;
+
     [field: SerializeField] public List<Effect> effects { get; private set; }
     [SerializeField] private Type type = Type.Soil;
     private SpriteRenderer sr => transform.GetChild(0).GetComponent<SpriteRenderer>();
@@ -64,7 +66,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             Destroy(plant);
             plant = null;
             GameManager.Instance.UpdateScore();
-            sr.sprite = null; // Reset sprite to default, TODO: add default sprite for empty plots
+            sr.sprite = defaultSprite; // Reset sprite to default
         }
     }
 
@@ -102,6 +104,17 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (GameManager.GameState == GameState.Digging)
+        {
+            if (plant != null)
+            {
+                Debug.Log("Plot " + i + "," + j + " clicked, removing plant");
+                RemovePlant();
+                PreviewController.Instance.UpdateInfo(GetInfoPlot());
+                AudioController.Instance.PlayShovelSound();
+            }
+        }
+
         if (GameManager.GameState != GameState.Planting)
         {
             return; // Can only plant in Planting state
@@ -135,7 +148,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
 
     #region Inspector Methods
-    public float timeBeforeShowBubble = 2f; // Time in seconds before showing the bubble
+    public float timeBeforeShowBubble = 1.5f; // Time in seconds before showing the bubble
 
     private IEnumerator currentCoroutine = null;
 
