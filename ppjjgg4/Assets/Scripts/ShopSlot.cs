@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using AYellowpaper.SerializedCollections;
 using com.cyborgAssets.inspectorButtonPro;
 using UnityEngine;
@@ -6,8 +8,15 @@ using UnityEngine.UI;
 
 public class ShopSlot : MonoBehaviour
 {
+    [Serializable]
+    public class Pool
+    {
+        public bool unique;
+        public float probability;
+        public List<Plant> plantPool;
+    }
     [SerializeField] private Shop shop;
-    [SerializeField] private SerializedDictionary<float, List<Plant>> pool;
+    [SerializeField] private List<Pool> pools;
     public bool isOpen = false;
     private Plant currentPlant;
 
@@ -28,21 +37,30 @@ public class ShopSlot : MonoBehaviour
     [ProButton]
     public void Roll()
     {
-        float r = Random.Range(0f, 1f);
+        float r = UnityEngine.Random.Range(0f, 1f);
         float current_p = 0;
+        Pool chosenPool = null;
         List<Plant> choice = new();
-        foreach (float key in pool.Keys)
+        foreach (Pool pool in pools)
         {
-            if (r >= current_p && r < (current_p + key))
+            chosenPool = pool;
+            if (r >= current_p && r < (current_p + pool.probability))
             {
-                choice = pool[key];
+                choice = pool.plantPool;
                 break;
             }
-            current_p += key;
+            current_p += pool.probability;
         }
-        Plant p = choice[Random.Range(0, choice.Count)];
-        currentPlant = p;
-        imagePreview.sprite = p.GetMatureSprite();
+        Plant p = choice[UnityEngine.Random.Range(0, choice.Count)];
+        if (chosenPool.unique && Garden.Instance.GetSpecies(p.Species).Count() > 0)
+        {
+            Roll();
+        }
+        else
+        {
+            currentPlant = p;
+            imagePreview.sprite = p.GetMatureSprite();
+        }
     }
 
     // Open slot when score is high enough

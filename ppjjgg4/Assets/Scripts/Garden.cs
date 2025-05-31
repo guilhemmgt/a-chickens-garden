@@ -98,6 +98,20 @@ public class Garden : MonoBehaviour
         return n;
     }
 
+    public List<Plot> GetSpecies(string species)
+    {
+        List<Plot> plots = new();
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                Plot plot = GetPlot(i, j);
+                if (plot.plant != null && plot.plant.Species.Equals(species)) plots.Add(plot);
+            }
+        }
+        return plots;
+    }
+
     public void OnEnable()
     {
         GameManager.OnDayEnded += EndDay;
