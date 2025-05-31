@@ -4,9 +4,11 @@ using System.Linq;
 using AYellowpaper.SerializedCollections;
 using com.cyborgAssets.inspectorButtonPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class ShopSlot : MonoBehaviour
+public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Serializable]
     public class Pool
@@ -20,6 +22,9 @@ public class ShopSlot : MonoBehaviour
     public bool isOpen = false;
     private Plant currentPlant;
 
+    private bool mouseOver;
+    private InputSystem_Actions actions;
+
     //public SpriteRenderer tempPreview;
 
     [HideInInspector]
@@ -30,6 +35,18 @@ public class ShopSlot : MonoBehaviour
         imagePreview = GetComponentInChildren<Image>();
         isOpen = false;
         imagePreview.color = Color.black;
+        actions = new();
+    }
+
+    void Update()
+    {
+        if (mouseOver)
+        {
+            Vector3 mousePos = actions.UI.Point.ReadValue<Vector2>();
+            Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            worldMousePos.z = 0;
+            PreviewController.Instance.PlaceBubble(worldMousePos + new Vector3(3,3,0));
+        }
     }
 
 
@@ -89,6 +106,20 @@ public class ShopSlot : MonoBehaviour
     {
         if (isOpen) shop.OnPlantSelected(this, currentPlant);
     }
-    
-    
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        actions.Enable();
+        mouseOver = true;
+        Vector3 worldMousePos = actions.UI.Point.ReadValue<Vector2>();
+        worldMousePos.z = 0;
+        PreviewController.Instance.ShowBubble(worldMousePos + new Vector3(3,3,0), currentPlant.skill.Name + " :\n" + currentPlant.skill.Description);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        actions.Disable();
+        mouseOver = false;
+        PreviewController.Instance.HideBubble();
+    }
 }
