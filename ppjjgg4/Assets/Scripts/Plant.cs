@@ -14,7 +14,7 @@ public class Plant : ScriptableObject {
     [SerializeField] private int score = 1;
     [SerializeField] private int growthTime = 3;
     [field: SerializeField] public Plot plot { get; private set; }
-    [SerializeReference, SubclassPicker] ISkill skill;
+    [SerializeReference, SubclassPicker] public ISkill skill;
     public int day;
     public bool hasMatured;
 
