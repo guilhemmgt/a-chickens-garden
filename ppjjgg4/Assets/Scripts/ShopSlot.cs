@@ -5,9 +5,10 @@ using AYellowpaper.SerializedCollections;
 using com.cyborgAssets.inspectorButtonPro;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ShopSlot : MonoBehaviour
+public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public enum Rarity {
         COMMON, RARE, UNIQUE
@@ -28,6 +29,11 @@ public class ShopSlot : MonoBehaviour
     public bool isOpen = false;
     private Plant currentPlant;
 
+    private bool mouseOver;
+    private InputSystem_Actions actions;
+
+    private Vector3 previewOffset = Vector3.zero;
+
     //public SpriteRenderer tempPreview;
 
     [HideInInspector]
@@ -37,6 +43,17 @@ public class ShopSlot : MonoBehaviour
     {
         imagePreview = GetComponentInChildren<Image>();
         isOpen = false;
+        actions = new();
+    }
+
+    private void Update()
+    {
+        if (mouseOver)
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(actions.UI.Point.ReadValue<Vector2>());
+            mousePos.z = 0;
+            PreviewController.Instance.PlaceBubble(mousePos + previewOffset);
+        }   
     }
 
 
@@ -101,6 +118,29 @@ public class ShopSlot : MonoBehaviour
     {
         if (isOpen) shop.OnPlantSelected(this, currentPlant);
     }
-    
-    
+
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        mouseOver = true;
+        actions.Enable();
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(actions.UI.Point.ReadValue<Vector2>());
+        mousePos.z = 0;
+        if (currentPlant.skill != null)
+        {
+            PreviewController.Instance.ShowBubble(mousePos + previewOffset, "Score: " + currentPlant.score + "\n"
+                + currentPlant.skill.Name + ":\n" + currentPlant.skill.Description);
+        }
+        else
+        {
+            PreviewController.Instance.ShowBubble(mousePos + previewOffset, "A perfectly normal flower.");
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        mouseOver = false;
+        actions.Disable();
+        PreviewController.Instance.HideBubble();
+    }
 }

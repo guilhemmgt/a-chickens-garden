@@ -35,20 +35,25 @@ public class PreviewController : MonoBehaviour
         bubbleObject.SetActive(true);
         bubbleObject.GetComponentInChildren<TMP_Text>().text = infoText;
 
-        // Conversion position monde -> position écran -> position locale canvas
+        PlaceBubble(worldPosition);
+
+        // Fade in
+        bubbleCanvasGroup.alpha = 0;
+        bubbleCanvasGroup.DOKill();
+        bubbleCanvasGroup.DOFade(1f, 0.3f);
+    }
+
+    public void PlaceBubble(Vector3 worldPosition)
+    {
+        // Conversion position monde -> position ï¿½cran -> position locale canvas
         Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(mainCamera, worldPosition);
         RectTransform bubbleRect = bubbleObject.GetComponent<RectTransform>();
         Vector2 anchoredPos;
 
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPoint, mainCamera, out anchoredPos))
         {
-            bubbleRect.anchoredPosition = anchoredPos + new Vector2(0f, 150f); // Décalage vertical
+            bubbleRect.anchoredPosition = anchoredPos + new Vector2(0f, 150f); // Dï¿½calage vertical
         }
-
-        // Fade in
-        bubbleCanvasGroup.alpha = 0;
-        bubbleCanvasGroup.DOKill();
-        bubbleCanvasGroup.DOFade(1f, 0.3f);
     }
 
     public void UpdateInfo(string infoText)

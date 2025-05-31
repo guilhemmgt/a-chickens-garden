@@ -8,14 +8,14 @@ public class SignPost : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	private float startY;
 
 	private void Awake () {
-		startY = transform.position.y;
+		startY = transform.GetChild(0).localPosition.y;
 	}
 
 	public void OnPointerEnter (PointerEventData pointerEventData) {
-		transform.DOMoveY (startY + offsetOnHover, offsetDuration);
+		transform.GetChild (0).DOLocalMoveY(startY + offsetOnHover, offsetDuration);
 	}
 
 	public void OnPointerExit (PointerEventData pointerEventData) {
-		transform.DOMoveY (startY, offsetDuration);
+		transform.GetChild (0).DOLocalMoveY (startY, offsetDuration);
 	}
 }
