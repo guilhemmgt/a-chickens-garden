@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AYellowpaper.SerializedCollections;
 using com.cyborgAssets.inspectorButtonPro;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -10,15 +11,22 @@ using UnityEngine.UI;
 
 public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    public enum Rarity {
+        COMMON, RARE, UNIQUE
+    }
+
     [Serializable]
     public class Pool
     {
-        public bool unique;
+        public Rarity rarity;
+		public bool unique;
         public float probability;
         public List<Plant> plantPool;
     }
     [SerializeField] private Shop shop;
-    [SerializeField] private List<Pool> pools;
+	[SerializeField] private TextMeshProUGUI text;
+	[SerializeField] private GameObject unlockText;
+	[SerializeField] private List<Pool> pools;
     public bool isOpen = false;
     private Plant currentPlant;
 
@@ -34,7 +42,6 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         imagePreview = GetComponentInChildren<Image>();
         isOpen = false;
-        imagePreview.color = Color.black;
         actions = new();
     }
 
@@ -76,7 +83,18 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         else
         {
             currentPlant = p;
-            imagePreview.sprite = p.GetMatureSprite();
+            switch (chosenPool.rarity) {
+                case Rarity.COMMON:
+                    imagePreview.sprite = isOpen ? shop.commonCard : shop.lockedCommonCard;
+                    break;
+                case Rarity.RARE:
+					imagePreview.sprite = isOpen ? shop.rareCard : shop.lockedRareCard;
+					break;
+                case Rarity.UNIQUE:
+					imagePreview.sprite = isOpen ? shop.uniqueCard : shop.lockedUniqueCard;
+					break;
+			}
+            text.text = currentPlant.name;
         }
     }
 
@@ -84,21 +102,15 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void Open()
     {
         isOpen = true;
-        imagePreview.color = Color.white;
-    }
+        if (unlockText != null)
+            unlockText.SetActive (false);
+	}
 
     // Close slot after plant was chosen today
     public void Close()
     {
-        if (isOpen)
-        {
-            imagePreview.color = Color.gray;
-        }
-        else
-        {
-            imagePreview.color = Color.black;
-        }
-        isOpen = false;
+        //imagePreview.sprite = shop.emptyCard;
+		isOpen = false;
     }
 
     [ProButton]
