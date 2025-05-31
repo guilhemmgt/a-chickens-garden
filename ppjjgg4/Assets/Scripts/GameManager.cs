@@ -15,6 +15,7 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     public static event Action OnDayEnded;
+    public static event Action<int> OnScoreUpdate;
     public static GameManager Instance;
 
     public static GameState GameState { get; set; } = GameState.Menu;
@@ -53,7 +54,9 @@ public class GameManager : MonoBehaviour
             OnDayEnded?.Invoke ();
             UpdateScore ();
 			Chicken.Instance.FadeOut ();
-        });
+			if (Shovel.Instance.IsDigging ())
+				Shovel.Instance.UseShovel ();
+		});
 	}
 
     public void UpdateScore()
@@ -63,6 +66,7 @@ public class GameManager : MonoBehaviour
         TopBarView.Instance.SetScore(newScore);
         TopBarView.Instance.SetDay(day);
         this.score = newScore;
+        OnScoreUpdate?.Invoke(newScore);
         //TopBarView.Instance.SetEventSprite (...); // TODO : ajout �vents
     }
 }

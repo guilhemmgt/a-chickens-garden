@@ -52,7 +52,9 @@ public class UI_Controller : MonoBehaviour
 	}
 	public Tween ShowMenuTween (bool instantSpeed = false)
     {
-        GameManager.GameState = GameState.Menu;
+		if (Shovel.Instance.IsDigging ())
+			Shovel.Instance.UseShovel ();
+		GameManager.GameState = GameState.Menu;
         Move(menuTransform, startPosition, instantSpeed);
         Move(shopTransform, rightPos, instantSpeed);
         Move(topBarTransform, topPos, instantSpeed);
@@ -65,7 +67,9 @@ public class UI_Controller : MonoBehaviour
     }
     public Tween ShowGameTween()
     {
-        Tween sample = Move(menuTransform, leftPos);
+		if (Shovel.Instance.IsDigging ())
+			Shovel.Instance.UseShovel ();
+		Tween sample = Move(menuTransform, leftPos);
         Move(shopTransform, rightPos);
         Move(topBarTransform, startPosition);
         Move(toShopSignTransform, startPosition);
@@ -80,7 +84,9 @@ public class UI_Controller : MonoBehaviour
 	}
 	public Tween ShowShopTween ()
     {
-        Tween sample = Move(menuTransform, leftPos);
+		if (Shovel.Instance.IsDigging ())
+			Shovel.Instance.UseShovel ();
+		Tween sample = Move(menuTransform, leftPos);
         Move(shopTransform, startPosition);
         Move(topBarTransform, startPosition);
         Move(toShopSignTransform, bottomPos);
