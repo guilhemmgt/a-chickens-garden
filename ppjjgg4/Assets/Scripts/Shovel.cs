@@ -35,6 +35,11 @@ public class Shovel : MonoBehaviour, IPointerDownHandler {
         }
     }
 
+    public void DisableShovel () {
+        if (IsDigging ())
+            UseShovel ();
+    }
+
     public bool IsDigging () {
         return GameManager.GameState == GameState.Digging;
     }
