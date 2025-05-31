@@ -9,6 +9,7 @@ public enum GameState
     Menu,
     Planting,
     Digging,
+    Herbier,
     Shop,
 }
 

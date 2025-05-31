@@ -13,6 +13,7 @@ public class ButtonMagnifier : MonoBehaviour, ISelectHandler, IDeselectHandler, 
     private void Start()
     {
         button = GetComponent<Button>();
+        button.onClick.AddListener(() => AudioController.Instance.PlayButtonClickSound());
     }
     public void OnDeselect(BaseEventData eventData)
     {

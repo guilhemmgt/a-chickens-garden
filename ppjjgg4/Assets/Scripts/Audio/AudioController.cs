@@ -22,6 +22,7 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioClip plantingClip;
     [SerializeField] private AudioClip buttonClickClip;
     [SerializeField] private AudioClip shovelClip;
+    [SerializeField] private AudioClip trophySuccesClip;
 
     private AudioSource soundEffectsSource;
     private AudioSource backgroundMusicSource;
@@ -150,7 +151,7 @@ public class AudioController : MonoBehaviour
 
     public void PlayButtonClickSound()
     {
-        MakeSound(buttonClickClip, volumeSFX, 0.5f, 1.5f);
+        MakeSound(buttonClickClip, 0.15f, 1.1f, 1.5f);
     }
 
     public void PlayShovelSound()
@@ -158,8 +159,14 @@ public class AudioController : MonoBehaviour
         MakeSound(shovelClip, volumeSFX, 0.8f, 1.2f);
     }
 
-    public void PlaySFXInParallel(AudioClip audioClip, float volume = 0.5f)
+    public void PlayTrophySuccessSound()
     {
+        MakeSound(trophySuccesClip, volumeSFX);
+    }
+
+    public void PlaySFXInParallel(AudioClip audioClip, float volume = 0.5f, float pitch = 1f)
+    {
+        soundEffectsSource.pitch = pitch; // Reset pitch to default
         soundEffectsSource.PlayOneShot(audioClip, volume);
     }
 
@@ -190,7 +197,7 @@ public class AudioController : MonoBehaviour
             "Game" => musicGame,
             "Tutorial" => musicMenu, // même musique que le menu
             "Menu" => musicMenu,
-            _ => null, // Aucune musique spécifique pour cette scène
+            _ => musicGame, // Aucune musique spécifique pour cette scène
         };
     }
 

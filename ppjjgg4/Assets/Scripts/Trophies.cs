@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class Trophies : MonoBehaviour
@@ -17,11 +18,20 @@ public class Trophies : MonoBehaviour
 
     private int nbClicks = 0;
 
+    public static Trophies Instance;
+
     void Awake()
     {
         POULETTO.SetActive(false);
         herbierTrophy.SetActive(false);
         scoreTrophy.SetActive(false);
+
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
     }
 
     private void Start()
@@ -40,12 +50,13 @@ public class Trophies : MonoBehaviour
             () => PreviewController.Instance.ShowBubble(scoreTrophy.transform.position + previewOffset, scoreDesc);
         scoreTrophy.GetComponent<PointerHandlerDispatcher>().OnPointerExit +=
             () => PreviewController.Instance.HideBubble();
+
+        Chicken.Instance.OnChickenClick += OnChickenClicked;
     }
 
     private void OnEnable()
     {
         GameManager.OnScoreUpdate += OnScoreUpdated;
-        Chicken.Instance.OnChickenClick += OnChickenClicked;
     }
 
     private void OnDisable()
@@ -62,8 +73,19 @@ public class Trophies : MonoBehaviour
     private void OnChickenClicked()
     {
         nbClicks++;
-        if (!POULETTO.activeSelf && nbClicks >= nbClicksToReach) POULETTO.SetActive(true);
+        if (!POULETTO.activeSelf && nbClicks >= nbClicksToReach)
+        {
+            // Apparition avec dotween 
+            POULETTO.SetActive(true);
+            AudioController.Instance.PlayTrophySuccessSound();
+            POULETTO.transform.localScale = Vector3.zero;
+            POULETTO.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
+        }
     }
 
+    public void ShowHerbierTrophy()
+    {
+        herbierTrophy.SetActive(true);
+    }
 
 }

@@ -150,7 +150,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
 
     #region Inspector Methods
-    public float timeBeforeShowBubble = 1.5f; // Time in seconds before showing the bubble
+    public float timeBeforeShowBubble = 1f; // Time in seconds before showing the bubble
 
     private IEnumerator currentCoroutine = null;
 
@@ -176,12 +176,15 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public IEnumerator ShowBubbleAfterDelay()
     {
         yield return new WaitForSeconds(timeBeforeShowBubble);
-        PreviewController.Instance.ShowBubble(transform.position, GetInfoPlot());
+        if (plant != null)
+        {
+            PreviewController.Instance.ShowBubble(transform.position, GetInfoPlot());
+        }
     }
 
     public string GetInfoPlot()
     {
-        string info = $"Plot ({i}, {j})\n";
+        string info = "";
         //info += $"Type: {type}\n";
         if (plant != null)
         {
@@ -193,7 +196,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         }
         else
         {
-            info += "No plant\n";
+            info += "<color=red>No plant</color>\n";
         }
         return info;
     }
