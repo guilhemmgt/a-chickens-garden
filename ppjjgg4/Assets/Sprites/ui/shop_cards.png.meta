@@ -139,7 +139,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 94
         width: 58
         height: 94
       alignment: 0
@@ -160,8 +160,8 @@ TextureImporter:
       name: shop_cards_1
       rect:
         serializedVersion: 2
-        x: 60
-        y: 0
+        x: 58
+        y: 94
         width: 58
         height: 94
       alignment: 0
@@ -182,8 +182,8 @@ TextureImporter:
       name: shop_cards_2
       rect:
         serializedVersion: 2
-        x: 120
-        y: 0
+        x: 116
+        y: 94
         width: 58
         height: 94
       alignment: 0
@@ -204,7 +204,7 @@ TextureImporter:
       name: shop_cards_3
       rect:
         serializedVersion: 2
-        x: 180
+        x: 0
         y: 0
         width: 58
         height: 94
@@ -218,6 +218,50 @@ TextureImporter:
       bones: []
       spriteID: 72afb4f506cf04250800000000000000
       internalID: 5927014600465447463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shop_cards_4
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 0
+        width: 58
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f7443f340fdc024798ace3fe0178f6b
+      internalID: -1123899616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shop_cards_5
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 0
+        width: 58
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2de46c94b05aaf847ada417599bede41
+      internalID: 1128518171
       vertices: []
       indices: 
       edges: []
@@ -236,12 +280,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":58.0,"y":94.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":2.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":2.0},"gridSpriteSize":{"x":58.0,"y":94.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       shop_cards_0: 5908294237274743995
       shop_cards_1: 5514971906463827644
       shop_cards_2: 8877814126628339994
       shop_cards_3: 5927014600465447463
+      shop_cards_4: -1123899616
+      shop_cards_5: 1128518171
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

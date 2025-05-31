@@ -11,7 +11,14 @@ public class Shop : MonoBehaviour
     [SerializeField] private int uniqueUnlockScore;
     [SerializeField] private ShopSlot uniqueSlot;
 
-    private bool hasBeenRolledToday = false;
+	[SerializeField] public Sprite commonCard;
+	[SerializeField] public Sprite rareCard;
+	[SerializeField] public Sprite uniqueCard;
+	[SerializeField] public Sprite lockedCommonCard;
+	[SerializeField] public Sprite lockedRareCard;
+	[SerializeField] public Sprite lockedUniqueCard;
+
+	private bool hasBeenRolledToday = false;
 
     private void OnEnable()
     {
