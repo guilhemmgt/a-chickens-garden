@@ -15,7 +15,7 @@ MonoBehaviour:
   <Species>k__BackingField: Hydrangea
   description: 
   matureSprite: {fileID: -6251682230944352461, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
-  score: 1
+  score: 50
   growthTime: 3
   <plot>k__BackingField: {fileID: 0}
   skill:
