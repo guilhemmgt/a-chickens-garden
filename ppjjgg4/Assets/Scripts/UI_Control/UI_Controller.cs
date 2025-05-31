@@ -16,10 +16,6 @@ public class UI_Controller : MonoBehaviour
 	[SerializeField] private RectTransform toShopSignTransform;
     [SerializeField] private RectTransform herbariumTransform;
 
-    [Header("Anim settings")]
-    [SerializeField] private float moveDuration = 0.5f;
-    [SerializeField] private Ease moveEase = Ease.Linear;
-	[SerializeField] private float overshoot = 0.25f;
 	[Header("Anim settings")]
     [SerializeField] public float moveDuration = 0.5f;
     [SerializeField] public Ease moveEase = Ease.Linear;
