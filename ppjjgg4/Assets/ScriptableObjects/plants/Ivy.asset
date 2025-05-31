@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6319a14f98a1043eeae1ab7ac6957ee9, type: 3}
   m_Name: Ivy
   m_EditorClassIdentifier: 
-  <Species>k__BackingField: 
+  <Species>k__BackingField: Ivy
   description: 
-  matureSprite: {fileID: 0}
-  score: 1
+  matureSprite: {fileID: 5339229742347854233, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
+  score: 10
   growthTime: 3
   <plot>k__BackingField: {fileID: 0}
   skill:
-    rid: -2
+    rid: 9152124385362444365
   day: 0
   hasMatured: 0
   seedSprite: {fileID: 2294204801877065548, guid: b8672d6dfd942014aac8b522878fccdb, type: 3}
@@ -27,5 +27,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 9152124385362444365
+      type: {class: StraightLiner, ns: , asm: Assembly-CSharp}
+      data: 
