@@ -67,6 +67,8 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             plant = null;
             GameManager.Instance.UpdateScore();
             sr.sprite = defaultSprite; // Reset sprite to default
+            if (Shovel.Instance.IsDigging()) // jsp trop quand est censé être appelée cette méthode, donc par sécurité...
+                Shovel.Instance.UseShovel ();
         }
     }
 

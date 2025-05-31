@@ -53,7 +53,9 @@ public class GameManager : MonoBehaviour
             OnDayEnded?.Invoke ();
             UpdateScore ();
 			Chicken.Instance.FadeOut ();
-        });
+			if (Shovel.Instance.IsDigging ())
+				Shovel.Instance.UseShovel ();
+		});
 	}
 
     public void UpdateScore()
