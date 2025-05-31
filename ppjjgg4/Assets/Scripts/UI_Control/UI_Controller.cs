@@ -4,7 +4,6 @@ using com.cyborgAssets.inspectorButtonPro;
 
 public class UI_Controller : MonoBehaviour
 {
-    public static UI_Controller Instance;
 
     [Header("UI Elements")]
     [SerializeField] private RectTransform menuTransform;
@@ -24,11 +23,7 @@ public class UI_Controller : MonoBehaviour
     private Vector3 topPos = new Vector3 (0, 160, 90);
     private Vector3 bottomPos = new Vector3 (0, -160, 90);
 
-	private void Awake () {
-        Instance = this;
-	}
-
-	void Start()
+    void Start()
     {
         startPosition = menuTransform.position;
 
@@ -36,56 +31,43 @@ public class UI_Controller : MonoBehaviour
 
 	}
 
-    public Tween Move (RectTransform targetTransform, Vector3 targetPosition, bool instantSpeed = false)
+    public void Move (RectTransform targetTransform, Vector3 targetPosition, bool instantSpeed = false)
     {
-        if (instantSpeed) {
+        if (instantSpeed)
             targetTransform.position = targetPosition;
-            return DOTween.Sequence();
-        } else {
-            return targetTransform.DOMove (targetPosition, moveDuration).SetEase (moveEase, overshoot);
-        }
+        else
+            targetTransform.DOMove (targetPosition, moveDuration).SetEase (moveEase, overshoot);
     }
 
     [ProButton]
-	public void ShowMenu (bool instantSpeed = false) {
-		ShowMenuTween (instantSpeed);
-	}
-	public Tween ShowMenuTween (bool instantSpeed = false)
+    public void ShowMenu (bool instantSpeed = false)
     {
         GameManager.GameState = GameState.Menu;
         Move(menuTransform, startPosition, instantSpeed);
         Move(shopTransform, rightPos, instantSpeed);
         Move(topBarTransform, topPos, instantSpeed);
-        return Move(toShopSignTransform, bottomPos, instantSpeed);
+        Move(toShopSignTransform, bottomPos, instantSpeed);
     }
 
     [ProButton]
-    public void ShowGame() {
-		ShowGameTween ();
-    }
-    public Tween ShowGameTween()
+    public void ShowGame()
     {
-        Tween sample = Move(menuTransform, leftPos);
+        Move(menuTransform, leftPos);
         Move(shopTransform, rightPos);
         Move(topBarTransform, startPosition);
         Move(toShopSignTransform, startPosition);
         
         GameManager.GameState = GameState.Planting;
-        return sample;
 	}
 
     [ProButton]
-	public void ShowShop () {
-		ShowShopTween ();
-	}
-	public Tween ShowShopTween ()
+    public void ShowShop()
     {
-        Tween sample = Move(menuTransform, leftPos);
+        Move(menuTransform, leftPos);
         Move(shopTransform, startPosition);
         Move(topBarTransform, startPosition);
         Move(toShopSignTransform, bottomPos);
         
         GameManager.GameState = GameState.Shop;
-        return sample;
 	}
 }
