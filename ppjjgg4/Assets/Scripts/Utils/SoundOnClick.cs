@@ -11,9 +11,9 @@ public class SoundOnClick : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         // Check that a collider is attached to the GameObject
-        if (GetComponent<Collider>() == null)
+        if (!TryGetComponent<Collider2D>(out _))
         {
-            Debug.LogWarning("SoundOnClick requires a Collider component to detect clicks.", this);
+            Debug.LogWarning("SoundOnClick requires a Collider2D component to detect clicks.", this);
         }
     }
 

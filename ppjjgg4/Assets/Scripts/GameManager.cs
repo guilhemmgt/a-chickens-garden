@@ -8,6 +8,7 @@ public enum GameState
 {
     Menu,
     Planting,
+    Digging,
     Shop,
 }
 
