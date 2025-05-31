@@ -17,6 +17,8 @@ public class HerbariumDisplayer : MonoBehaviour
         }
 
         DisplayObtainedPlants();
+
+        UI_Controller.Instance.OnHerbierShow += DisplayObtainedPlants;
     }
 
     public void DisplayObtainedPlants()
@@ -53,7 +55,7 @@ public class HerbariumDisplayer : MonoBehaviour
                 else
                 {
                     // Si la plante n'a pas de description, affiche juste le score
-                    tmp.text = plant.name + "\nA perfectly normal flower. \n Score: " + plant.score;
+                    tmp.text = plant.name + "\nA perfectly normal flower.\n Score: " + plant.score;
                 }
             }
             else

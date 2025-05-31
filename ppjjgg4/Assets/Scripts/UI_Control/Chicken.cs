@@ -8,9 +8,9 @@ using UnityEngine.EventSystems;
 public class Chicken : MonoBehaviour, IPointerClickHandler {
 
 	public static Chicken Instance;
-	public event Action OnChickenClick;
+	public event Action OnChickenClick = delegate { };
 
-	[SerializeField] private Transform mask;
+    [SerializeField] private Transform mask;
 
 	[SerializeField] private float targetScale;
 

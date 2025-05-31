@@ -1,3 +1,4 @@
+using com.cyborgAssets.inspectorButtonPro;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,19 +18,23 @@ public class Herbarium : MonoBehaviour
     public void TryAddPlant(Plot plot, Plant plant)
     {
         bool isAlreadyObtained = false;
-        foreach (Plant p in allPlants)
+        foreach (Plant p in obtainedPlants)
         {
             if (p.Species == plant.Species)
             {
                 isAlreadyObtained = true;
-                return;
             }
         }
 
         if (!isAlreadyObtained)
         {
-            allPlants.Add(plant);
+            obtainedPlants.Add(plant);
             Debug.Log($"Plante {plant.Species} ajoutée à l'herbier.");
+
+            if (HasObtainedAllPlants())
+            {
+                Trophies.Instance.ShowHerbierTrophy();
+            }
         }
         else
         {
@@ -48,6 +53,20 @@ public class Herbarium : MonoBehaviour
         }
 
         return false;
+    }
+
+    [ProButton]
+    public bool HasObtainedAllPlants()
+    {
+        // Vérifie si toutes les plantes de allPlants sont dans obtainedPlants
+        foreach (Plant plant in allPlants)
+        {
+            if (!HasPlant(plant))
+            {
+                return false; // Si une plante n'est pas obtenue, retourne false
+            }
+        }
+        return true; // Toutes les plantes ont été obtenues
     }
 
     public List<Plant> GetObtainedPlants()
