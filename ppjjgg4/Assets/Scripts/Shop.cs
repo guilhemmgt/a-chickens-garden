@@ -5,28 +5,31 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
-
     [SerializeField] private ShopSlot commonSlot;
     [SerializeField] private int rareUnlockScore;
     [SerializeField] private ShopSlot rareSlot;
     [SerializeField] private int uniqueUnlockScore;
     [SerializeField] private ShopSlot uniqueSlot;
 
+    private bool hasBeenRolledToday = false;
 
-    public SpriteRenderer tempChosen;
-
-    private void Awake()
+    private void OnEnable()
     {
-        tempChosen = GetComponent<SpriteRenderer>();
-        
+        GameManager.OnDayEnded += () => hasBeenRolledToday = false;
     }
 
     [ProButton]
     public void Open()
     {
-        commonSlot.Open();
-        if (!rareSlot.isOpen && rareUnlockScore <= GameManager.Instance.score) rareSlot.Open();
-        if (!uniqueSlot.isOpen && uniqueUnlockScore <= GameManager.Instance.score) uniqueSlot.Open();
+        if (!hasBeenRolledToday)
+        {
+            commonSlot.Open();
+            if (!rareSlot.isOpen && rareUnlockScore <= GameManager.Instance.score) rareSlot.Open();
+            if (!uniqueSlot.isOpen && uniqueUnlockScore <= GameManager.Instance.score) uniqueSlot.Open();
+
+            Roll();
+            hasBeenRolledToday = true;
+        }
     }
 
     [ProButton]
@@ -39,8 +42,16 @@ public class Shop : MonoBehaviour
 
     public void OnPlantSelected(ShopSlot slot, Plant plant)
     {
-        slot.tempPreview.color = Color.gold;
-        tempChosen.sprite = plant.Sprite;
+        slot.imagePreview.color = Color.gold;
+        ChoiceHandler.Instance.SetCurrentPlant(plant);
+        CloseShop();
+    }
+
+    public void CloseShop()
+    {
+        commonSlot.Close();
+        rareSlot.Close();
+        uniqueSlot.Close();
     }
 
 }

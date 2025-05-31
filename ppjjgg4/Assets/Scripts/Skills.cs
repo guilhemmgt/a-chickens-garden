@@ -404,6 +404,56 @@ public class StrongWill : Skill
         {
             AddEffect(new(Effect.Flag.Score1, this, new()), owner.plot);
             count++;
-        }      
         }
+    }
+}
+
+public class CornerEnjoyer : Skill
+{
+    public override string Name => "Corner Enjoyer";
+
+    public override string Description => "+ 20 score if located on a corner of the garden.";
+
+    public override void SetOwner(Plant plant)
+    {
+        base.SetOwner(plant);
+        if (plant.plot.i == 0 && (plant.plot.j == 0 || plant.plot.j == Garden.Instance.width - 1)
+        || plant.plot.i == Garden.Instance.height - 1 && (plant.plot.j == 0 || plant.plot.j == Garden.Instance.width - 1))
+            AddEffect(new(Effect.Flag.Score20, this, new()), owner.plot);
+    }
+}
+
+public class StraightLiner : Skill
+{
+    public override string Name => "Straight Liner";
+
+    public override string Description => "+10 score for every plant in the same column";
+
+    public override void SetOwner(Plant plant)
+    {
+        base.SetOwner(plant);
+        Garden.OnPlantMatured += OnPlantMatured;
+    }
+
+    public override void OnMature()
+    {
+        base.OnMature();
+        UpdateSkill();
+    }
+
+    private void OnPlantMatured(Plot plot, Plant plant)
+    {
+        if (plot.j == owner.plot.j) AddEffect(new(Effect.Flag.Score10, this, new() { plot }), owner.plot);
+    }
+
+    private void UpdateSkill()
+    {
+        if (!owner.hasMatured) return;
+        foreach (Effect effect in effect_table.Keys) RemoveEffect(effect);
+        for (int i = 0; i < Garden.Instance.height; i++)
+        {
+            Plot plot = Garden.Instance.GetPlot(i, owner.plot.j);
+            if (plot.plant != null && plot != owner.plot) AddEffect(new(Effect.Flag.Score10, this, new() { plot }), owner.plot);
+        }
+    }
 }

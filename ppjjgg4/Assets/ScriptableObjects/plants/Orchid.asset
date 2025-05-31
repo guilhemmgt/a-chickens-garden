@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6319a14f98a1043eeae1ab7ac6957ee9, type: 3}
-  m_Name: Hydrangea
+  m_Name: Orchid
   m_EditorClassIdentifier: 
-  <Species>k__BackingField: Hydrangea
+  <Species>k__BackingField: Orchid
   description: 
-  matureSprite: {fileID: -6251682230944352461, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
+  matureSprite: {fileID: -1933497887715123699, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
   score: 50
   growthTime: 3
   <plot>k__BackingField: {fileID: 0}
   skill:
-    rid: 943680725029224594
+    rid: -2
   day: 0
   hasMatured: 0
   seedSprite: {fileID: 2294204801877065548, guid: b8672d6dfd942014aac8b522878fccdb, type: 3}
@@ -27,6 +27,5 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 943680725029224594
-      type: {class: LonelyBloom, ns: , asm: Assembly-CSharp}
-      data: 
+    - rid: -2
+      type: {class: , ns: , asm: }

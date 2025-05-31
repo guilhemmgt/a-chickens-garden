@@ -116,21 +116,21 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             {
                 if (ChoiceHandler.Instance.TryPlantCurrent(this))
                 {
-                    Debug.Log("Plot " + i + "," + j + " clicked, planted " + currentPlant.name);
+                    //Debug.Log("Plot " + i + "," + j + " clicked, planted " + currentPlant.name);
                 }
                 else
                 {
-                    Debug.Log("Plot " + i + "," + j + " clicked, failed to plant current plant");
+                    //Debug.Log("Plot " + i + "," + j + " clicked, failed to plant current plant");
                 }
             }
             else
             {
-                Debug.Log("Plot " + i + "," + j + " clicked, no current plant selected");
+                //Debug.Log("Plot " + i + "," + j + " clicked, no current plant selected");
             }
         }
         else
         {
-            Debug.Log("Plot " + i + "," + j + " clicked, no plant");
+            //Debug.Log("Plot " + i + "," + j + " clicked, no plant");
         }
     }
 
@@ -141,7 +141,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Plot " + i + "," + j + " hovered, showing bubble");
+        //Debug.Log("Plot " + i + "," + j + " hovered, showing bubble");
         if (GameManager.GameState == GameState.Menu)
         {
             return; // Do not show bubble in menu state

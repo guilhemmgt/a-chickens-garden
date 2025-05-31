@@ -15,6 +15,7 @@ public class AudioController : MonoBehaviour
 
     [Header("Sound Effects")]
     [SerializeField] private AudioClip plantingClip;
+    [SerializeField] private AudioClip buttonClickClip;
 
     private AudioSource soundEffectsSource;
     private AudioSource backgroundMusicSource;
@@ -141,6 +142,16 @@ public class AudioController : MonoBehaviour
         MakeSound(plantingClip, volume);
     }
 
+    public void PlayButtonClickSound()
+    {
+        MakeSound(buttonClickClip, 0.5f, 0.5f, 1.5f);
+    }
+
+    public void PlaySFXInParallel(AudioClip audioClip, float volume = 0.5f)
+    {
+        soundEffectsSource.PlayOneShot(audioClip, volume);
+    }
+
     public void StopBackgroundMusic()
     {
         if (backgroundMusicSource.isPlaying)
@@ -149,13 +160,8 @@ public class AudioController : MonoBehaviour
         }
     }
 
-    public void MakeCardSwitchingSound()
-    {
-        MakeSound(plantingClip, 0.5f, 0.5f, 1.5f);
-    }
-
     // Rajoute des paramètres pour modifier un peu le son de manière aléatoire
-    private void MakeSound(AudioClip originalClip, float volume = 0.5f, float pitchMin = 1f, float pitchMax = 1f, bool hasPriority = true)
+    public void MakeSound(AudioClip originalClip, float volume = 0.5f, float pitchMin = 1f, float pitchMax = 1f, bool hasPriority = true)
     {
         if (soundEffectsSource.isPlaying && !hasPriority)
         {

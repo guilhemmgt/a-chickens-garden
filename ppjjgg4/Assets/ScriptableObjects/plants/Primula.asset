@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Species>k__BackingField: Primula
   description: 
-  sprite: {fileID: 8020143640844766479, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
+  matureSprite: {fileID: 8020143640844766479, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
   score: 10
   growthTime: 3
   <plot>k__BackingField: {fileID: 0}
