@@ -69,4 +69,9 @@ public class Plant : ScriptableObject {
         return matureSprite;
     }
 
+    public string GetDescription()
+    {
+        return description;
+    }
+
 }
