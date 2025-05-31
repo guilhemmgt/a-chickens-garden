@@ -69,7 +69,7 @@ public class UI_Controller : MonoBehaviour
     {
 		if (Shovel.Instance.IsDigging ())
 			Shovel.Instance.UseShovel ();
-		Tween sample = Move(menuTransform, leftPos);
+		Tween sample = Move(menuTransform, bottomPos);
         Move(shopTransform, rightPos);
         Move(topBarTransform, startPosition);
         Move(toShopSignTransform, startPosition);
@@ -86,7 +86,7 @@ public class UI_Controller : MonoBehaviour
     {
 		if (Shovel.Instance.IsDigging ())
 			Shovel.Instance.UseShovel ();
-		Tween sample = Move(menuTransform, leftPos);
+		Tween sample = Move(menuTransform, bottomPos);
         Move(shopTransform, startPosition);
         Move(topBarTransform, startPosition);
         Move(toShopSignTransform, bottomPos);

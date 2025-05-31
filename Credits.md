@@ -5,7 +5,11 @@ Sound Effects from [Pixabay](https://pixabay.com/)
 - by [floraphonic](https://pixabay.com/users/floraphonic-38928062/)
 
 Assets
-- [UI Pack - Pixel Adventure by Kenney](https://kenney.nl/assets/ui-pack-pixel-adventure)
-- [100 hand picked pixel flowers by BTL Games](https://btl-games.itch.io/pixel-art-fauna-asset-pack)
-- [Tiny Farm RPG - Asset Pack 16x16 (Free) by emanuelledev](https://emanuelledev.itch.io/farm-rpg)
-- [Pixel Card Assets by storiesstrauss](https://opengameart.org/content/pixel-card-assets)
+- flowers from [100 hand picked pixel flowers](https://btl-games.itch.io/pixel-art-fauna-asset-pack) by BTL Games
+- tiles and props from [Tiny Farm RPG - Asset Pack 16x16 (Free)](https://emanuelledev.itch.io/farm-rpg) by emanuelledev
+- UI elements from [Pixel Card Assets](https://opengameart.org/content/pixel-card-assets) by storiesstrauss
+- UI elements from [UI Pack - Pixel Adventure](https://kenney.nl/assets/ui-pack-pixel-adventure) by Kenney
+- shovel from [GARDENS 16x16 icon pack](https://ivoryred.itch.io/gardens-16x16-icon-pack) by ivoryred
+
+Font
+- [Advanced Pixel 7](https://www.dafont.com/advanced-pixel-7.font) by Style-7
