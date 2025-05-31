@@ -1,11 +1,14 @@
 using DG.Tweening;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Chicken : MonoBehaviour {
+public class Chicken : MonoBehaviour, IPointerClickHandler {
 
 	public static Chicken Instance;
+	public event Action OnChickenClick;
 
 	[SerializeField] private Transform mask;
 
@@ -27,7 +30,9 @@ public class Chicken : MonoBehaviour {
 	private GameObject eventSystem;
 	private int i = 0;
 
-	private void Awake () {
+
+	private void Awake()
+	{
 		Instance = this;
 	}
 
@@ -58,4 +63,9 @@ public class Chicken : MonoBehaviour {
 			eventSystem.SetActive (true);
 		});
 	}
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+		OnChickenClick?.Invoke();
+    }
 }
