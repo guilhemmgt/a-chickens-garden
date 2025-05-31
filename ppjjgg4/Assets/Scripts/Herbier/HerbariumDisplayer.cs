@@ -21,7 +21,13 @@ public class HerbariumDisplayer : MonoBehaviour
 
     public void DisplayObtainedPlants()
     {
-       foreach (Plant plant in herbarium.allPlants)
+        // Destroy all existing cells in the display
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (Plant plant in herbarium.allPlants)
         {
             // Crée une cellule pour la plante obtenue
             GameObject cell = Instantiate(cellPrefab, transform);
