@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class ChoiceHandler : MonoBehaviour
 {
     [SerializeField] private Plant currentPlant;
-    [SerializeField] private Image currentPlantImage; // UI element to display the current plant
 
     public static ChoiceHandler Instance { get; private set; }
 
@@ -24,8 +23,8 @@ public class ChoiceHandler : MonoBehaviour
 
         if (currentPlant != null)
         {
-            currentPlantImage.sprite = currentPlant.Sprite;
-        }
+			SeedPanelView.Instance.SetImage (currentPlant.Sprite);
+		}
     }
 
     public bool HasCurrentPlant()
@@ -50,7 +49,7 @@ public class ChoiceHandler : MonoBehaviour
             Debug.LogWarning("Replacing current plant: " + currentPlant.name + " with " + plant.name);
         }
         currentPlant = plant;
-        currentPlantImage.sprite = currentPlant.Sprite; // Update UI image
+		SeedPanelView.Instance.SetImage(currentPlant.Sprite); // Update UI image
     }
 
     public bool TryPlantCurrent(Plot plot)
@@ -70,7 +69,7 @@ public class ChoiceHandler : MonoBehaviour
         AudioController.Instance.PlayPlantingSound(); // Play sound effect when setting a new plant
 
         currentPlant = null; // Clear current plant after planting
-        currentPlantImage.sprite = null; // Clear UI image
-        return true;
+        SeedPanelView.Instance.ClearImage (); // Clear UI image
+		return true;
     }
 }
