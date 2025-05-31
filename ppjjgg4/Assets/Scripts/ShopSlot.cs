@@ -126,15 +126,7 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         actions.Enable();
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(actions.UI.Point.ReadValue<Vector2>());
         mousePos.z = 0;
-        if (currentPlant.skill != null)
-        {
-            PreviewController.Instance.ShowBubble(mousePos + previewOffset, "Score: " + currentPlant.score + "\n"
-                + currentPlant.skill.Name + ":\n" + currentPlant.skill.Description);
-        }
-        else
-        {
-            PreviewController.Instance.ShowBubble(mousePos + previewOffset, "A perfectly normal flower.");
-        }
+        PreviewController.Instance.ShowBubble(mousePos + previewOffset, currentPlant.GetShopDescription());
     }
 
     public void OnPointerExit(PointerEventData eventData)

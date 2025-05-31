@@ -74,4 +74,17 @@ public class Plant : ScriptableObject {
         return description;
     }
 
+    public string GetShopDescription()
+    {
+        if (skill != null)
+        {
+            return "Score: " + score + "\n"
+                + skill.Name + ":\n" + skill.Description;
+        }
+        else
+        {
+            return "Score: " + score + "\nA perfectly normal flower";
+        }            
+    }
+
 }
