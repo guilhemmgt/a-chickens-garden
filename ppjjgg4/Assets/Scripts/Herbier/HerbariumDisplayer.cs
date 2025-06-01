@@ -7,7 +7,8 @@ public class HerbariumDisplayer : MonoBehaviour
     private Herbarium herbarium;
 
     [SerializeField] private GameObject cellPrefab; // contains in child one image and one text
-    [SerializeField] private Sprite trophySprite;
+
+    [SerializeField] private GameObject trophyCell;
 
     private void Start()
     {
@@ -89,11 +90,9 @@ public class HerbariumDisplayer : MonoBehaviour
             }
         }
         // Trophies
-        GameObject trophyCell = Instantiate(cellPrefab, transform);
         trophyCell.name = "Trophies";
 
         Image trophyCellImage = trophyCell.GetComponentInChildren<Image>();
-        trophyCellImage.sprite = trophySprite;
 
         TextMeshProUGUI trophyDesc = trophyCell.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI trophyName = trophyCell.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
