@@ -97,8 +97,9 @@ public class HerbariumDisplayer : MonoBehaviour
         TextMeshProUGUI trophyDesc = trophyCell.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI trophyName = trophyCell.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
 
+        int totalTrophies = Trophies.Instance.NbTrophies();
         int nbTrophies = Trophies.Instance.NbTrophiesUnlocked();
-        trophyName.text = $"Trophies {nbTrophies}/3";
+        trophyName.text = $"Trophies {nbTrophies}/";
         if (nbTrophies == 3)
         {
             trophyCellImage.color = Color.white;

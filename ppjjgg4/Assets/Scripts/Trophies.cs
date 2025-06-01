@@ -28,12 +28,15 @@ public class Trophies : MonoBehaviour
     public static Trophies Instance;
 
 
+    public int NbTrophies() => 5;
     public int NbTrophiesUnlocked()
     {
         int n = 0;
         if (POULETTO.activeSelf) n++;
         if (herbierTrophy.activeSelf) n++;
         if (scoreTrophy.activeSelf) n++;
+        if (shovelTrophy.activeSelf) n++;
+        if (pickaxeTrophy.activeSelf) n++;
         return n;
     }
 
