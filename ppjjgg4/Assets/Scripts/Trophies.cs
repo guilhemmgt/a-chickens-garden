@@ -67,7 +67,11 @@ public class Trophies : MonoBehaviour
 
     private void OnScoreUpdated(int score)
     {
-        if (!scoreTrophy.activeSelf && score >= scoreToReach) scoreTrophy.SetActive(true);
+        if (!scoreTrophy.activeSelf && score >= scoreToReach)
+        {
+            scoreTrophy.SetActive(true);
+            AudioController.Instance.PlayTrophySuccessSound();
+        }
     }
 
     private void OnChickenClicked()
@@ -86,6 +90,7 @@ public class Trophies : MonoBehaviour
     public void ShowHerbierTrophy()
     {
         herbierTrophy.SetActive(true);
+        AudioController.Instance.PlayTrophySuccessSound();
     }
 
 }
