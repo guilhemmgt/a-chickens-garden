@@ -151,7 +151,7 @@ public class AudioController : MonoBehaviour
 
     public void PlayButtonClickSound()
     {
-        MakeSound(buttonClickClip, 0.15f, 1.1f, 1.5f);
+        MakeSound(buttonClickClip, volumeSFX, 1.1f, 1.5f);
     }
 
     public void PlayShovelSound()

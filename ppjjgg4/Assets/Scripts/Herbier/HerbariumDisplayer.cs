@@ -39,7 +39,7 @@ public class HerbariumDisplayer : MonoBehaviour
             Image imagePrefab = cell.GetComponentInChildren<Image>();
             imagePrefab.sprite = plant.GetMatureSprite();
 
-            Debug.Log("Displaying plant: " + plant.Species);
+            //Debug.Log("Displaying plant: " + plant.Species);
 			TextMeshProUGUI desc = cell.transform.GetChild (1).GetComponent<TextMeshProUGUI> ();
 			TextMeshProUGUI name = cell.transform.GetChild (2).GetComponent<TextMeshProUGUI> ();
 			if (herbarium.HasPlant(plant))
