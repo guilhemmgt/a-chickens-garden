@@ -7,6 +7,7 @@ public class HerbariumDisplayer : MonoBehaviour
     private Herbarium herbarium;
 
     [SerializeField] private GameObject cellPrefab; // contains in child one image and one text
+    [SerializeField] private Sprite trophySprite;
 
     private void Start()
     {
@@ -87,6 +88,30 @@ public class HerbariumDisplayer : MonoBehaviour
 
             }
         }
+        // Trophies
+        GameObject trophyCell = Instantiate(cellPrefab, transform);
+        trophyCell.name = "Trophies";
+
+        Image trophyCellImage = trophyCell.GetComponentInChildren<Image>();
+        trophyCellImage.sprite = trophySprite;
+
+        TextMeshProUGUI trophyDesc = trophyCell.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI trophyName = trophyCell.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+
+        int nbTrophies = Trophies.Instance.NbTrophiesUnlocked();
+        trophyName.text = $"Trophies {nbTrophies}/3";
+        if (nbTrophies == 3)
+        {
+            trophyCellImage.color = Color.white;
+            trophyDesc.text = "Congratulations, you found everything !";
+        }
+        else
+        {
+            trophyCellImage.color = Color.black;
+            trophyDesc.text = "You are missing some trophies... Did you ask the chicken ?";
+        }
+
+
     }
 
 
