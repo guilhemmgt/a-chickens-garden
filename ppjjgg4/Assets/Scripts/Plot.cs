@@ -184,15 +184,25 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     public string GetInfoPlot()
     {
+        int totalScore = GetPlotScore();
+        int baseScore = plant.GetScore();
+        int modifier = totalScore - baseScore;
+        string opToDisplay = (modifier >= 0) ? "+" : "-";
         string info = "";
         //info += $"Type: {type}\n";
         if (plant != null)
         {
             info += $"Plant: {plant.Species}\n";
-            info += $"Day passed: {plant.day}\n";
-            //info += $"Has matured: {plant.hasMatured}\n";
-            info += $"Plant Score: {plant.GetScore()}\n";
-            info += $"Total score: {GetPlotScore()} \n";
+            if (plant.hasMatured)
+            {
+                info += $"Score: {baseScore}{opToDisplay}{Mathf.Abs(modifier)}\n";
+            }
+            else
+            {
+                int daysLeft = plant.growthTime - plant.day;
+                string dayString = "day" + ((daysLeft > 1) ? "s" : "");
+                info += $"Will grow in {daysLeft} {dayString}.\n";
+            }
         }
         else
         {
