@@ -23,6 +23,7 @@ public class Shovel : MonoBehaviour, IPointerDownHandler {
     public void UseShovel () {
         if (GameManager.GameState == GameState.Planting) {
 			// Change the sprite to cancel
+			Pickaxe.Instance.DisablePickaxe ();
 			sr.sprite = usingSprite;
             GameManager.GameState = GameState.Digging;
         } else if (GameManager.GameState == GameState.Digging) {

@@ -11,6 +11,7 @@ public enum GameState
     Digging,
     Herbier,
     Shop,
+    Mining,
 }
 
 public class GameManager : MonoBehaviour
@@ -57,6 +58,8 @@ public class GameManager : MonoBehaviour
 			Chicken.Instance.FadeOut ();
 			if (Shovel.Instance.IsDigging ())
 				Shovel.Instance.UseShovel ();
+			if (Pickaxe.Instance.IsMining ())
+				Pickaxe.Instance.UsePickaxe ();
 		});
 	}
 

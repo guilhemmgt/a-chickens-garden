@@ -27,6 +27,8 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
 	[SerializeField] private Sprite defaultSprite = null;
 
+	[SerializeField] private GameObject rockObject = null;
+
 	[field: SerializeField] public List<Effect> effects { get; private set; }
     [SerializeField] public Type type = Type.Soil;
     private SpriteRenderer sr => transform.GetChild(0).GetComponent<SpriteRenderer>();
@@ -108,6 +110,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
 
     public void OnPointerClick(PointerEventData eventData) {
+        Debug.Log ("GameManager.GameState = " + GameManager.GameState);
         if (GameManager.GameState == GameState.Digging)
         {
             if (plant != null)
@@ -119,7 +122,15 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             }
         }
 
-        if (GameManager.GameState != GameState.Planting)
+		if (GameManager.GameState == GameState.Mining) {
+			if (type == Type.Rock) {
+                Debug.Log ("Plot " + i + "," + j + " clicked, removing ROCK");
+                type = Type.Soil;
+                rockObject.SetActive (false);
+			}
+		}
+
+		if (GameManager.GameState != GameState.Planting)
         {
             return; // Can only plant in Planting state
         }

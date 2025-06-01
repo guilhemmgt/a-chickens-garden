@@ -6,11 +6,13 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
+    public static Shop Instance;
+
     [SerializeField] private ShopSlot commonSlot;
     [SerializeField] private int rareUnlockScore;
     [SerializeField] private ShopSlot rareSlot;
-    [SerializeField] private int uniqueUnlockScore;
-    [SerializeField] private ShopSlot uniqueSlot;
+    [SerializeField] public int uniqueUnlockScore;
+    [SerializeField] public ShopSlot uniqueSlot;
 
     [SerializeField] public Sprite emptyCard;
 	[SerializeField] public Sprite commonCard;
@@ -24,7 +26,11 @@ public class Shop : MonoBehaviour
 
 	private bool hasBeenRolledToday = false;
 
-    private void OnEnable()
+	private void Awake () {
+		Instance = this;
+	}
+
+	private void OnEnable()
     {
         GameManager.OnDayEnded += () => hasBeenRolledToday = false;
     }
@@ -37,7 +43,9 @@ public class Shop : MonoBehaviour
 
 			commonSlot.Open();
             if (!rareSlot.isOpen && rareUnlockScore <= GameManager.Instance.score) rareSlot.Open();
-            if (!uniqueSlot.isOpen && uniqueUnlockScore <= GameManager.Instance.score) uniqueSlot.Open();
+            if (!uniqueSlot.isOpen && uniqueUnlockScore <= GameManager.Instance.score) {
+                uniqueSlot.Open ();
+            }
 
             Roll();
             hasBeenRolledToday = true;

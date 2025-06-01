@@ -61,6 +61,8 @@ public class UI_Controller : MonoBehaviour
     {
 		if (Shovel.Instance.IsDigging ())
 			Shovel.Instance.UseShovel ();
+		if (Pickaxe.Instance.IsMining ())
+			Pickaxe.Instance.UsePickaxe ();
 		GameManager.GameState = GameState.Menu;
         Move(menuTransform, startPosition, instantSpeed);
         Move(shopTransform, rightPos, instantSpeed);
@@ -81,12 +83,14 @@ public class UI_Controller : MonoBehaviour
     {
 		if (Shovel.Instance.IsDigging ())
 			Shovel.Instance.UseShovel ();
+		if (Pickaxe.Instance.IsMining ())
+			Pickaxe.Instance.UsePickaxe ();
 		Tween sample = Move(menuTransform, bottomPos);
         Move(shopTransform, rightPos);
         Move(topBarTransform, startPosition);
         Move(toShopSignTransform, startPosition);
 		Move (herbariumTransform, topPos);
-		herbariumShown = false;
+        herbariumShown = false;
 
 		GameManager.GameState = GameState.Planting;
         return sample;
@@ -100,12 +104,20 @@ public class UI_Controller : MonoBehaviour
     {
 		if (Shovel.Instance.IsDigging ())
 			Shovel.Instance.UseShovel ();
+		if (Pickaxe.Instance.IsMining ())
+			Pickaxe.Instance.UsePickaxe ();
 		Tween sample = Move(menuTransform, bottomPos);
         Move(shopTransform, startPosition);
         Move(topBarTransform, startPosition);
         Move (toShopSignTransform, bottomPos);
 		Move (herbariumTransform, topPos);
 		herbariumShown = false;
+
+		sample.OnComplete (() => {
+			if (Shop.Instance.uniqueSlot.isOpen && Shop.Instance.uniqueUnlockScore <= GameManager.Instance.score) {
+				Pickaxe.Instance.UnlockPickaxe ();
+			}
+		});
 
 		GameManager.GameState = GameState.Shop;
         return sample;
@@ -118,6 +130,8 @@ public class UI_Controller : MonoBehaviour
     public Tween ShowHerbariumTween() {
 		if (Shovel.Instance.IsDigging ())
 			Shovel.Instance.UseShovel ();
+		if (Pickaxe.Instance.IsMining ())
+			Pickaxe.Instance.UsePickaxe ();
 		Tween sample = Move (menuTransform, bottomPos);
 		Move (topBarTransform, startPosition);
         Move (toShopSignTransform, bottomPos);

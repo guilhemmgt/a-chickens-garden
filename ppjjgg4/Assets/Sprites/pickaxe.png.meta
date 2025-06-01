@@ -1,16 +1,13 @@
 fileFormatVersion: 2
-guid: 737e189eb3b55cd458e1aaaf15ef9297
+guid: f4921e0c319091f44a294bf20e9bb536
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8824678039292553908
-    second: shovel 1_0
+      213: 8959118705387878318
+    second: pickaxe_0
   - first:
-      213: 3588377153427429556
-    second: shovel 1_1
-  - first:
-      213: 2462785980045712675
-    second: shovel 1_2
+      213: -690277927211705776
+    second: pickaxe_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -132,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: shovel_0
+      name: pickaxe_0
       rect:
         serializedVersion: 2
         x: 0
@@ -145,16 +142,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: c8968d40432731b41970183556103efa
-      internalID: 685176608
+      spriteID: ea7b33fbefe255c70800000000000000
+      internalID: 8959118705387878318
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: shovel_1
+      name: pickaxe_1
       rect:
         serializedVersion: 2
         x: 16
@@ -167,16 +164,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 6b0d3ed8debad7f468b0a51dfd02f025
-      internalID: -771045982
+      spriteID: 05ad048e1e3ab66f0800000000000000
+      internalID: -690277927211705776
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: shovel_2
+      name: pickaxe_2
       rect:
         serializedVersion: 2
         x: 32
@@ -191,8 +188,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c031a239091e614e9457659cfe98a78
-      internalID: -305868697
+      spriteID: ea0c43ff2c3353a438d74605f8199fb8
+      internalID: -2097514284
       vertices: []
       indices: 
       edges: []
@@ -201,7 +198,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d4dab30daf1235c4eba6f26816ccbdee
+    spriteID: 0718dbc9e3292cf4d903a0a24255fd7c
     internalID: 0
     vertices: []
     indices: 
@@ -213,9 +210,9 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      shovel_0: 685176608
-      shovel_1: -771045982
-      shovel_2: -305868697
+      pickaxe_0: 8959118705387878318
+      pickaxe_1: -690277927211705776
+      pickaxe_2: -2097514284
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
