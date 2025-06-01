@@ -11,10 +11,17 @@ public class Trophies : MonoBehaviour
     [TextArea(3, 5)] public string herbierDesc;
     public GameObject scoreTrophy;
     [TextArea(3, 5)] public string scoreDesc;
+    public GameObject shovelTrophy;
+    [TextArea(3, 5)] public string shovelDesc;
+    public GameObject pickaxeTrophy;
+    [TextArea(3, 5)] public string pickaxeDesc;
+
 
     [Header("Conditions")]
     public int nbClicksToReach = 10;
     public int scoreToReach = 1000;
+    public int nbOfPlantsToHave = 24;
+    public int nbOfRocksToRemove = 1;
 
     private int nbClicks = 0;
 
@@ -35,6 +42,8 @@ public class Trophies : MonoBehaviour
         POULETTO.SetActive(false);
         herbierTrophy.SetActive(false);
         scoreTrophy.SetActive(false);
+        shovelTrophy.SetActive(false);
+        pickaxeTrophy.SetActive(false);
 
         if (Instance != null)
         {
@@ -61,7 +70,22 @@ public class Trophies : MonoBehaviour
         scoreTrophy.GetComponent<PointerHandlerDispatcher>().OnPointerExit +=
             () => PreviewController.Instance.HideBubble();
 
+        shovelTrophy.GetComponent<PointerHandlerDispatcher>().OnPointerEnter +=
+            () => PreviewController.Instance.ShowBubble(shovelTrophy.transform.position + previewOffset, shovelDesc);
+        shovelTrophy.GetComponent<PointerHandlerDispatcher>().OnPointerExit +=
+            () => PreviewController.Instance.HideBubble();
+
+        pickaxeTrophy.GetComponent<PointerHandlerDispatcher>().OnPointerEnter +=
+            () => PreviewController.Instance.ShowBubble(pickaxeTrophy.transform.position + previewOffset, pickaxeDesc);
+        pickaxeTrophy.GetComponent<PointerHandlerDispatcher>().OnPointerExit +=
+            () => PreviewController.Instance.HideBubble();
+
         Chicken.Instance.OnChickenClick += OnChickenClicked;
+        Garden.OnPlantMatured += (_, _) =>
+        {
+            if (CheckShovel()) UnlockTrophy(shovelTrophy);
+        };
+        // OnRockRemoved += () => pickaxeTrophy.SetActive(true);
     }
 
     private void OnEnable()
@@ -73,6 +97,12 @@ public class Trophies : MonoBehaviour
     {
         GameManager.OnScoreUpdate -= OnScoreUpdated;
         Chicken.Instance.OnChickenClick -= OnChickenClicked;
+    }
+
+    private void UnlockTrophy(GameObject trophy)
+    {
+        trophy.SetActive(true);
+        AudioController.Instance.PlayTrophySuccessSound();
     }
 
     private void OnScoreUpdated(int score)
@@ -90,8 +120,7 @@ public class Trophies : MonoBehaviour
         if (!POULETTO.activeSelf && nbClicks >= nbClicksToReach)
         {
             // Apparition avec dotween 
-            POULETTO.SetActive(true);
-            AudioController.Instance.PlayTrophySuccessSound();
+            UnlockTrophy(POULETTO);
             POULETTO.transform.localScale = Vector3.zero;
             POULETTO.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
         }
@@ -99,8 +128,21 @@ public class Trophies : MonoBehaviour
 
     public void ShowHerbierTrophy()
     {
-        herbierTrophy.SetActive(true);
-        AudioController.Instance.PlayTrophySuccessSound();
+        UnlockTrophy(herbierTrophy);
+    }
+
+    public bool CheckShovel()
+    {
+        Garden garden = Garden.Instance;
+        for (int i=0; i<garden.height; i++)
+        {
+            for (int j=0; j<garden.width; j++)
+            {
+                Plot plot = garden.GetPlot(i, j);
+                if (plot.plant == null || !plot.plant.hasMatured) return false;
+            }
+        }
+        return true;
     }
 
 }
