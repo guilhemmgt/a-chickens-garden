@@ -15,7 +15,7 @@ MonoBehaviour:
   <Species>k__BackingField: Primula
   description: 
   matureSprite: {fileID: 8020143640844766479, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
-  score: 10
+  score: 15
   growthTime: 3
   <plot>k__BackingField: {fileID: 0}
   skill:

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.Interactions;
 [Serializable]
 public class Effect
 {
-    public enum Flag { SnailProtection, EffectCancelled, Score1, Score10, Score20, Score40, Score100, ScoreM10, ScoreM5}
+    public enum Flag { SnailProtection, EffectCancelled, Score1, Score5, Score10, Score20, Score40, Score50, Score100, Score250, ScoreM10, ScoreM5}
     public Flag flag;
     public ISkill owner;
     public string ownerName;
@@ -33,10 +33,13 @@ public class Effect
         return flag switch
         {
             Flag.Score1 => 1,
+            Flag.Score5 => 5,
             Flag.Score10 => 10,
             Flag.Score20 => 20,
             Flag.Score40 => 40,
+            Flag.Score50 => 50,
             Flag.Score100 => 100,
+            Flag.Score250 => 250,
             Flag.ScoreM10 => -10,
             Flag.ScoreM5 => -5,
             _ => 0
