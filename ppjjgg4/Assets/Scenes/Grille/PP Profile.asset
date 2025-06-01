@@ -100,7 +100,7 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.99421114, z: 0.87304604, w: -0.000000079137976}
+    m_Value: {x: 1, y: 0.90561295, z: 0.77783906, w: -0.2276708}
   midtones:
     m_OverrideState: 1
     m_Value: {x: 0.9892128, y: 1, z: 0.99190974, w: 0.017513141}
@@ -134,10 +134,10 @@ MonoBehaviour:
   active: 1
   lift:
     m_OverrideState: 0
-    m_Value: {x: 0.9809305, y: 0.98311394, z: 1, w: 0}
+    m_Value: {x: 1, y: 1, z: 1, w: 0}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 0.9934157, y: 0.94190806, z: 1, w: 0.1050788}
+    m_Value: {x: 1, y: 0.95945764, z: 0.9924418, w: 0}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 0.9839059, y: 1, z: 0.83270943, w: 0}
+    m_Value: {x: 1, y: 0.98757446, z: 0.9296752, w: 0}
