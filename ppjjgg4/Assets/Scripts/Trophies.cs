@@ -20,6 +20,16 @@ public class Trophies : MonoBehaviour
 
     public static Trophies Instance;
 
+
+    public int NbTrophiesUnlocked()
+    {
+        int n = 0;
+        if (POULETTO.activeSelf) n++;
+        if (herbierTrophy.activeSelf) n++;
+        if (scoreTrophy.activeSelf) n++;
+        return n;
+    }
+
     void Awake()
     {
         POULETTO.SetActive(false);
