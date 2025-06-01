@@ -21,10 +21,12 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] public Ease moveEase = Ease.Linear;
 	[SerializeField] public float overshoot = 0.25f;
 
+    private bool herbariumShown = false;
+
 	private Vector3 startPosition;
 
-    private Vector3 leftPos = new Vector3 (-285, 0, 90);
-    private Vector3 rightPos = new Vector3 (285, 0, 90);
+    private Vector3 leftPos = new Vector3 (-290, 0, 90);
+    private Vector3 rightPos = new Vector3 (290, 0, 90);
     private Vector3 topPos = new Vector3 (0, 160, 90);
     private Vector3 bottomPos = new Vector3 (0, -160, 90);
 
@@ -36,10 +38,7 @@ public class UI_Controller : MonoBehaviour
     {
         startPosition = menuTransform.position;
 
-        herbariumTransform.position = topPos;
-
         ShowMenu (true);
-
 	}
 
     public Tween Move (RectTransform targetTransform, Vector3 targetPosition, bool instantSpeed = false)
@@ -64,9 +63,10 @@ public class UI_Controller : MonoBehaviour
         Move(menuTransform, startPosition, instantSpeed);
         Move(shopTransform, rightPos, instantSpeed);
         Move(topBarTransform, topPos, instantSpeed);
-        Move(herbariumTransform, topPos);
+        Move (herbariumTransform, topPos, instantSpeed);
+        herbariumShown = false;
 
-        return Move(toShopSignTransform, bottomPos, instantSpeed);
+		return Move(toShopSignTransform, bottomPos, instantSpeed);
     }
 
     [ProButton]
@@ -81,9 +81,10 @@ public class UI_Controller : MonoBehaviour
         Move(shopTransform, rightPos);
         Move(topBarTransform, startPosition);
         Move(toShopSignTransform, startPosition);
-        Move(herbariumTransform, topPos);
+		Move (herbariumTransform, topPos);
+		herbariumShown = false;
 
-        GameManager.GameState = GameState.Planting;
+		GameManager.GameState = GameState.Planting;
         return sample;
 	}
 
@@ -98,30 +99,37 @@ public class UI_Controller : MonoBehaviour
 		Tween sample = Move(menuTransform, bottomPos);
         Move(shopTransform, startPosition);
         Move(topBarTransform, startPosition);
-        Move(toShopSignTransform, bottomPos);
-        Move(herbariumTransform, topPos);
+        Move (toShopSignTransform, bottomPos);
+		Move (herbariumTransform, topPos);
+		herbariumShown = false;
 
-        GameManager.GameState = GameState.Shop;
+		GameManager.GameState = GameState.Shop;
         return sample;
 	}
 
-    public Tween ShowHerbariumTween()
-    {
-        if (Shovel.Instance.IsDigging())
-            Shovel.Instance.UseShovel();
-
-        Tween sample = Move(menuTransform, bottomPos);
-        Move(shopTransform, rightPos);
-        Move(topBarTransform, topPos);
-        Move(toShopSignTransform, bottomPos);
-        Move(herbariumTransform, startPosition);
-
-        return sample;
+    [ProButton]
+    public void ShowHerbarium() {
+        ShowHerbariumTween ();
     }
+    public Tween ShowHerbariumTween() {
+		if (Shovel.Instance.IsDigging ())
+			Shovel.Instance.UseShovel ();
+		Tween sample = Move (menuTransform, bottomPos);
+		Move (topBarTransform, startPosition);
+        Move (toShopSignTransform, bottomPos);
+        Move (herbariumTransform, startPosition);
+        herbariumShown = true;
+		OnHerbierShow?.Invoke ();
 
-    public void ShowHerbarium()
-    {
-        ShowHerbariumTween();
-        OnHerbierShow?.Invoke();
+		return sample;
+	}
+    public void ToggleHerbarium() {
+        if (herbariumShown) {
+            if (GameManager.GameState == GameState.Shop)
+                ShowShop ();
+            else
+                ShowGame ();
+        } else
+            ShowHerbarium ();
     }
 }

@@ -40,32 +40,34 @@ public class HerbariumDisplayer : MonoBehaviour
             imagePrefab.sprite = plant.GetMatureSprite();
 
             Debug.Log("Displaying plant: " + plant.Species);
-            if (herbarium.HasPlant(plant))
+			TextMeshProUGUI desc = cell.transform.GetChild (1).GetComponent<TextMeshProUGUI> ();
+			TextMeshProUGUI name = cell.transform.GetChild (2).GetComponent<TextMeshProUGUI> ();
+			if (herbarium.HasPlant(plant))
             {
                 imagePrefab.color = Color.white;
-
+                name.text = plant.name;
                 // Assigne le texte
-                TextMeshProUGUI tmp = cell.GetComponentInChildren<TextMeshProUGUI>();
                 if (plant.skill != null)
                 {
-                    // Si la plante a une description, l'affiche
-                    tmp.text = plant.name + "\nScore: " + plant.score + "\n"
+					// Si la plante a une description, l'affiche
+					desc.text = "Score: " + plant.score + "\n"
                         + plant.skill.Name + ":\n" + plant.skill.Description;
                 }
                 else
                 {
-                    // Si la plante n'a pas de description, affiche juste le score
-                    tmp.text = plant.name + "\nA perfectly normal flower.\n Score: " + plant.score;
+					// Si la plante n'a pas de description, affiche juste le score
+					desc.text = "A perfectly normal flower.\n Score: " + plant.score;
                 }
             }
             else
             {
                 imagePrefab.color = Color.black;
 
-                // Assigne le texte
-                TextMeshProUGUI tmp = cell.GetComponentInChildren<TextMeshProUGUI>();
-                tmp.text = "???";
-            }
+                // Assigne le 
+                name.text = "???";
+                desc.text = "Yet to be discovered...";
+
+			}
         }
     }
 
