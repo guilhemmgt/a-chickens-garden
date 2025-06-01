@@ -14,7 +14,9 @@ public class UI_Controller : MonoBehaviour
     [SerializeField] private RectTransform topBarTransform;
 	[SerializeField] private RectTransform shopTransform;
 	[SerializeField] private RectTransform toShopSignTransform;
-    [SerializeField] private RectTransform herbariumTransform;
+	[SerializeField] private RectTransform herbariumTransform;
+	[SerializeField] private RectTransform tutorialTransform;
+	[SerializeField] private RectTransform creditsTransform;
 
 	[Header("Anim settings")]
     [SerializeField] public float moveDuration = 0.5f;
@@ -64,7 +66,9 @@ public class UI_Controller : MonoBehaviour
         Move(shopTransform, rightPos, instantSpeed);
         Move(topBarTransform, topPos, instantSpeed);
         Move (herbariumTransform, topPos, instantSpeed);
-        herbariumShown = false;
+        Move (tutorialTransform, topPos, instantSpeed);
+		Move (creditsTransform, topPos, instantSpeed);
+		herbariumShown = false;
 
 		return Move(toShopSignTransform, bottomPos, instantSpeed);
     }
@@ -132,4 +136,16 @@ public class UI_Controller : MonoBehaviour
         } else
             ShowHerbarium ();
     }
+
+    [ProButton]
+    public void ShowTutorial() {
+        Move (menuTransform, bottomPos);
+        Move(tutorialTransform, startPosition);
+    }
+
+    [ProButton]
+    public void ShowCredits () {
+		Move (menuTransform, bottomPos);
+		Move (creditsTransform, startPosition);
+	}
 }

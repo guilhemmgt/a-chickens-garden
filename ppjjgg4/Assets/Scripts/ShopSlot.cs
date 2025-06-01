@@ -24,7 +24,6 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
     [SerializeField] private Shop shop;
 	[SerializeField] private TextMeshProUGUI text;
-	[SerializeField] private GameObject unlockText;
 	[SerializeField] private List<Pool> pools;
     public bool isOpen = false;
     private Plant currentPlant;
@@ -34,9 +33,11 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private Vector3 previewOffset = Vector3.zero;
 
-    //public SpriteRenderer tempPreview;
+    [SerializeField] private GameObject ifLocked;
 
-    [HideInInspector]
+	//public SpriteRenderer tempPreview;
+
+	[HideInInspector]
     public Image imagePreview;
 
     private void Awake()
@@ -76,34 +77,31 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             current_p += pool.probability;
         }
         Plant p = choice[UnityEngine.Random.Range(0, choice.Count)];
-        if (chosenPool.unique && Garden.Instance.GetSpecies(p.Species).Count() > 0)
-        {
-            Roll();
-        }
-        else
-        {
+        if (chosenPool.unique && Garden.Instance.GetSpecies (p.Species).Count () > 0) {
+            Roll ();
+        } else {
             currentPlant = p;
             switch (chosenPool.rarity) {
                 case Rarity.COMMON:
                     imagePreview.sprite = isOpen ? shop.commonCard : shop.lockedCommonCard;
                     break;
                 case Rarity.RARE:
-					imagePreview.sprite = isOpen ? shop.rareCard : shop.lockedRareCard;
-					break;
+                    imagePreview.sprite = isOpen ? shop.rareCard : shop.lockedRareCard;
+                    break;
                 case Rarity.UNIQUE:
-					imagePreview.sprite = isOpen ? shop.uniqueCard : shop.lockedUniqueCard;
-					break;
-			}
+                    imagePreview.sprite = isOpen ? shop.uniqueCard : shop.lockedUniqueCard;
+                    break;
+            }
             text.text = currentPlant.name;
         }
-    }
+	}
 
     // Open slot when score is high enough
     public void Open()
     {
         isOpen = true;
-        if (unlockText != null)
-            unlockText.SetActive (false);
+        if (ifLocked != null)
+            ifLocked.SetActive (false);
 	}
 
     // Close slot after plant was chosen today
