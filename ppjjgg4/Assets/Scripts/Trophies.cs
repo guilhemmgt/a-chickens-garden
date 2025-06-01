@@ -27,6 +27,7 @@ public class Trophies : MonoBehaviour
 
     public static Trophies Instance;
 
+    public int NbTrophies() => 5;
 
     public int NbTrophiesUnlocked()
     {
