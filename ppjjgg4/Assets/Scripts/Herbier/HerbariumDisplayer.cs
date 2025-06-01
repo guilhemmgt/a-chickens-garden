@@ -42,6 +42,7 @@ public class HerbariumDisplayer : MonoBehaviour
             //Debug.Log("Displaying plant: " + plant.Species);
 			TextMeshProUGUI desc = cell.transform.GetChild (1).GetComponent<TextMeshProUGUI> ();
 			TextMeshProUGUI name = cell.transform.GetChild (2).GetComponent<TextMeshProUGUI> ();
+
 			if (herbarium.HasPlant(plant))
             {
                 imagePrefab.color = Color.white;
@@ -59,6 +60,23 @@ public class HerbariumDisplayer : MonoBehaviour
 					desc.text = "A perfectly normal flower.\n Score: " + plant.score;
                 }
             }
+            else if (herbarium.HasSeed(plant))
+            {
+                imagePrefab.color = Color.black;
+                name.text = plant.name;
+                // Assigne le texte
+                if (plant.skill != null)
+                {
+                    // Si la plante a une description, l'affiche
+                    desc.text = "Score: " + plant.score + "\n"
+                        + plant.skill.Name + ":\n" + plant.skill.Description;
+                }
+                else
+                {
+                    // Si la plante n'a pas de description, affiche juste le score
+                    desc.text = "A perfectly normal flower.\n Score: " + plant.score;
+                }
+            }
             else
             {
                 imagePrefab.color = Color.black;
@@ -67,7 +85,7 @@ public class HerbariumDisplayer : MonoBehaviour
                 name.text = "???";
                 desc.text = "Yet to be discovered...";
 
-			}
+            }
         }
     }
 
