@@ -24,7 +24,6 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
     [SerializeField] private Shop shop;
 	[SerializeField] private TextMeshProUGUI text;
-	[SerializeField] private GameObject unlockText;
 	[SerializeField] private List<Pool> pools;
     public bool isOpen = false;
     private Plant currentPlant;
@@ -34,9 +33,11 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private Vector3 previewOffset = Vector3.zero;
 
-    //public SpriteRenderer tempPreview;
+    [SerializeField] private GameObject ifLocked;
 
-    [HideInInspector]
+	//public SpriteRenderer tempPreview;
+
+	[HideInInspector]
     public Image imagePreview;
 
     private void Awake()
@@ -61,7 +62,7 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [ProButton]
     public void Roll()
     {
-        int maxIter = 100; // Mesure de sécurité
+        int maxIter = 100; // Mesure de sï¿½curitï¿½
         int iter = 0;
         Pool chosenPool = SelectPool();
         while (!IsRollable(chosenPool) && iter < maxIter)
@@ -123,8 +124,8 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void Open()
     {
         isOpen = true;
-        if (unlockText != null)
-            unlockText.SetActive (false);
+        if (ifLocked != null)
+            ifLocked.SetActive (false);
 	}
 
     // Close slot after plant was chosen today
