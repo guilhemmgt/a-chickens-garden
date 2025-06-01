@@ -15,7 +15,7 @@ MonoBehaviour:
   <Species>k__BackingField: Rose Queen
   description: 
   matureSprite: {fileID: 319700722, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
-  score: 10
+  score: 20
   growthTime: 3
   <plot>k__BackingField: {fileID: 0}
   skill:

@@ -62,39 +62,63 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [ProButton]
     public void Roll()
     {
+        int maxIter = 100; // Mesure de s�curit�
+        int iter = 0;
+        Pool chosenPool = SelectPool();
+        while (!IsRollable(chosenPool) && iter < maxIter)
+        {
+            chosenPool = SelectPool();
+            iter++;
+        }
+        if (iter >= maxIter) throw new Exception("Could not roll a plant");
+
+        List<Plant> choice = chosenPool.plantPool;
+        Plant p = choice[UnityEngine.Random.Range(0, choice.Count)];
+        iter = 0;
+        while (chosenPool.unique && !IsRollable(p) && iter < maxIter)
+        {
+            p = choice[UnityEngine.Random.Range(0, choice.Count)];
+            iter++;
+        }
+        if (iter >= maxIter) throw new Exception("Could not roll a plant");
+
+        currentPlant = p;
+        switch (chosenPool.rarity)
+        {
+            case Rarity.COMMON:
+                imagePreview.sprite = isOpen ? shop.commonCard : shop.lockedCommonCard;
+                break;
+            case Rarity.RARE:
+                imagePreview.sprite = isOpen ? shop.rareCard : shop.lockedRareCard;
+                break;
+            case Rarity.UNIQUE:
+                imagePreview.sprite = isOpen ? shop.uniqueCard : shop.lockedUniqueCard;
+                break;
+        }
+        text.text = currentPlant.name;
+    }
+
+    private Pool SelectPool()
+    {
         float r = UnityEngine.Random.Range(0f, 1f);
         float current_p = 0;
-        Pool chosenPool = null;
-        List<Plant> choice = new();
+        Pool choice = null;
         foreach (Pool pool in pools)
         {
-            chosenPool = pool;
+            choice = pool;
             if (r >= current_p && r < (current_p + pool.probability))
             {
-                choice = pool.plantPool;
                 break;
             }
             current_p += pool.probability;
         }
-        Plant p = choice[UnityEngine.Random.Range(0, choice.Count)];
-        if (chosenPool.unique && Garden.Instance.GetSpecies (p.Species).Count () > 0) {
-            Roll ();
-        } else {
-            currentPlant = p;
-            switch (chosenPool.rarity) {
-                case Rarity.COMMON:
-                    imagePreview.sprite = isOpen ? shop.commonCard : shop.lockedCommonCard;
-                    break;
-                case Rarity.RARE:
-                    imagePreview.sprite = isOpen ? shop.rareCard : shop.lockedRareCard;
-                    break;
-                case Rarity.UNIQUE:
-                    imagePreview.sprite = isOpen ? shop.uniqueCard : shop.lockedUniqueCard;
-                    break;
-            }
-            text.text = currentPlant.name;
-        }
-	}
+        return choice;
+    }
+
+    private bool IsRollable(Plant plant) => Garden.Instance.GetSpecies(plant.Species).Count() == 0;
+    private bool IsRollable(Pool pool) => !pool.unique || pool.plantPool.Where(p => IsRollable(p)).Count() >= 1;
+
+
 
     // Open slot when score is high enough
     public void Open()
@@ -124,15 +148,8 @@ public class ShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         actions.Enable();
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(actions.UI.Point.ReadValue<Vector2>());
         mousePos.z = 0;
-        if (currentPlant.skill != null)
-        {
-            PreviewController.Instance.ShowBubble(mousePos + previewOffset, "Score: " + currentPlant.score + "\n"
-                + currentPlant.skill.Name + ":\n" + currentPlant.skill.Description);
-        }
-        else
-        {
-            PreviewController.Instance.ShowBubble(mousePos + previewOffset, "A perfectly normal flower.");
-        }
+
+        PreviewController.Instance.ShowBubble(mousePos + previewOffset, currentPlant.GetShopDescription());
     }
 
     public void OnPointerExit(PointerEventData eventData)

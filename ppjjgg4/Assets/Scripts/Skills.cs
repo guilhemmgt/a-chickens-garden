@@ -59,7 +59,7 @@ public class LookingForTheSun : Skill
 {
     public override string Name => "Looking for the sun";
 
-    public override string Description => "+40 score if next to a Blue Sun.";
+    public override string Description => "+50 score if next to a Blue Sun.";
 
     public override void SetOwner(Plant plant)
     {
@@ -94,7 +94,7 @@ public class LookingForTheSun : Skill
             {
                 if (n.plant.Species.Equals("Blue Sun") && n.plant.hasMatured)
                 {
-                    AddEffect(new(Effect.Flag.Score40, this, new() { n }), owner.plot);
+                    AddEffect(new(Effect.Flag.Score50, this, new() { n }), owner.plot);
                     break;
                 }
             }
@@ -107,7 +107,7 @@ public class LookingForTheMoon : Skill
 {
     public override string Name => "Looking for the moon";
 
-    public override string Description => "+40 score if next to a Yellow Moon.";
+    public override string Description => "+50 score if next to a Yellow Moon.";
 
     public override void SetOwner(Plant plant)
     {
@@ -141,7 +141,7 @@ public class LookingForTheMoon : Skill
             {
                 if (n.plant.Species.Equals("Yellow Moon") && n.plant.hasMatured)
                 {
-                    AddEffect(new(Effect.Flag.Score40, this, new() { n }), owner.plot);
+                    AddEffect(new(Effect.Flag.Score50, this, new() { n }), owner.plot);
                     break;
                 }
             }
@@ -154,7 +154,7 @@ public class HappyNeighbours : Skill
 {
     public override string Name => "Happy Neighbours";
 
-    public override string Description => "+10 score for each surrounding Primula.";
+    public override string Description => "+5 score for each surrounding Primula.";
 
     public override void SetOwner(Plant plant)
     {
@@ -186,7 +186,7 @@ public class HappyNeighbours : Skill
         foreach (Plot plot in neighbours)
         {
             if (plot.plant != null && plot.plant.hasMatured && plot.plant.Species.Equals("Primula"))
-                AddEffect(new(Effect.Flag.Score10, this, new() { plot }), owner.plot);
+                AddEffect(new(Effect.Flag.Score5, this, new() { plot }), owner.plot);
         }
         GameManager.Instance.UpdateScore();
     }
@@ -196,7 +196,7 @@ public class QueenOfLove : Skill
 {
     public override string Name => "Queen of Love";
 
-    public override string Description => "+20 score for each Rose in the garden.";
+    public override string Description => "+60 score for each Rose in the garden.";
 
     public override void SetOwner(Plant plant)
     {
@@ -218,9 +218,9 @@ public class QueenOfLove : Skill
 
     private void OnPlantMatured(Plot plot, Plant plant)
     {
-        if (plant.Species.Equals("Rose"))
+        if (owner.hasMatured && plant.Species.Equals("Rose"))
         {
-            AddEffect(new(Effect.Flag.Score20, this, new() { plot }), owner.plot);
+            AddEffect(new(Effect.Flag.Score50, this, new() { plot }), owner.plot);
             GameManager.Instance.UpdateScore();
         }
     }
@@ -237,7 +237,7 @@ public class QueenOfLove : Skill
 
                 Plot plot = garden.GetPlot(i, j);
                 if (plot.plant != null && plot.plant.hasMatured && plot.plant.Species.Equals("Rose"))
-                    AddEffect(new(Effect.Flag.Score20, this, new() { plot }), owner.plot);
+                    AddEffect(new(Effect.Flag.Score50, this, new() { plot }), owner.plot);
             }
         }
         GameManager.Instance.UpdateScore();
@@ -304,6 +304,11 @@ public class Silence : Skill
     public override void SetOwner(Plant plant)
     {
         base.SetOwner(plant);
+    }
+
+    public override void OnMature()
+    {
+        base.OnMature();
         foreach (Plot plot in Garden.Instance.GetNeighbours(owner.plot.i, owner.plot.j))
             AddEffect(new(Effect.Flag.EffectCancelled, this, new()), plot);
     }
@@ -313,7 +318,7 @@ public class LeaderOfFlowers : Skill
 {
     public override string Name => "Leader of Flowers";
 
-    public override string Description => "+100 score if surrounded by 8 different flowers.";
+    public override string Description => "+250 score if surrounded by 8 different flowers.";
 
     public override void SetOwner(Plant plant)
     {
@@ -342,7 +347,7 @@ public class LeaderOfFlowers : Skill
         Debug.Log(n_species);
         if (n_species == 8)
         {
-            AddEffect(new(Effect.Flag.Score100, this, new(neighbours)), owner.plot);
+            AddEffect(new(Effect.Flag.Score250, this, new(neighbours)), owner.plot);
             GameManager.Instance.UpdateScore();
         }
     }
@@ -414,12 +419,21 @@ public class CornerEnjoyer : Skill
 
     public override string Description => "+ 20 score if located on a corner of the garden.";
 
+    private bool isInCorner;
+
     public override void SetOwner(Plant plant)
     {
         base.SetOwner(plant);
         if (plant.plot.i == 0 && (plant.plot.j == 0 || plant.plot.j == Garden.Instance.width - 1)
         || plant.plot.i == Garden.Instance.height - 1 && (plant.plot.j == 0 || plant.plot.j == Garden.Instance.width - 1))
-            AddEffect(new(Effect.Flag.Score20, this, new()), owner.plot);
+            isInCorner = true;
+        else isInCorner = false;
+    }
+
+    public override void OnMature()
+    {
+        base.OnMature();
+        if (isInCorner) AddEffect(new(Effect.Flag.Score20, this, new()), owner.plot);
     }
 }
 
@@ -427,7 +441,7 @@ public class StraightLiner : Skill
 {
     public override string Name => "Straight Liner";
 
-    public override string Description => "+10 score for every plant in the same column";
+    public override string Description => "+20 score for every plant in the same column";
 
     public override void SetOwner(Plant plant)
     {
@@ -443,7 +457,7 @@ public class StraightLiner : Skill
 
     private void OnPlantMatured(Plot plot, Plant plant)
     {
-        if (plot.j == owner.plot.j) AddEffect(new(Effect.Flag.Score10, this, new() { plot }), owner.plot);
+        if (owner.hasMatured && plot.j == owner.plot.j) AddEffect(new(Effect.Flag.Score20, this, new() { plot }), owner.plot);
     }
 
     private void UpdateSkill()
@@ -453,7 +467,7 @@ public class StraightLiner : Skill
         for (int i = 0; i < Garden.Instance.height; i++)
         {
             Plot plot = Garden.Instance.GetPlot(i, owner.plot.j);
-            if (plot.plant != null && plot != owner.plot) AddEffect(new(Effect.Flag.Score10, this, new() { plot }), owner.plot);
+            if (plot.plant != null && plot != owner.plot) AddEffect(new(Effect.Flag.Score20, this, new() { plot }), owner.plot);
         }
     }
 }

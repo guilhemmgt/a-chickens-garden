@@ -150,7 +150,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
 
     #region Inspector Methods
-    public float timeBeforeShowBubble = 1f; // Time in seconds before showing the bubble
+    private float timeBeforeShowBubble = 0.3f; // Time in seconds before showing the bubble
 
     private IEnumerator currentCoroutine = null;
 

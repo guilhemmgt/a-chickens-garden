@@ -15,7 +15,7 @@ MonoBehaviour:
   <Species>k__BackingField: Rampants
   description: 
   matureSprite: {fileID: 5777552420452043588, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
-  score: 50
+  score: 80
   growthTime: 3
   <plot>k__BackingField: {fileID: 0}
   skill:
