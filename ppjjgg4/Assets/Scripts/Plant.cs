@@ -4,6 +4,7 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using Unity.XR.GoogleVr;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 
 [CreateAssetMenu (fileName = "Plant", menuName = "Garden/Plant")]
@@ -72,6 +73,19 @@ public class Plant : ScriptableObject {
     public string GetDescription()
     {
         return description;
+    }
+
+    public string GetShopDescription()
+    {
+        if (skill != null)
+        {
+            return "Score: " + score + "\n"
+                + skill.Name + ":\n" + skill.Description;
+        }
+        else
+        {
+            return "Score: " + score + "\nA perfectly normal flower";
+        }            
     }
 
 }
