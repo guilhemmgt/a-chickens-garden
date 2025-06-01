@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class ChoiceHandler : MonoBehaviour
 {
     [SerializeField] private Plant currentPlant;
+    [Header("Debug tools")]
+    [SerializeField] private bool dontEraseSeed = false;
 
     public static ChoiceHandler Instance { get; private set; }
 
@@ -69,8 +71,11 @@ public class ChoiceHandler : MonoBehaviour
         plot.AddPlant(currentPlant);
         AudioController.Instance.PlayPlantingSound(); // Play sound effect when setting a new plant
 
-        currentPlant = null; // Clear current plant after planting
-        SeedPanelView.Instance.ClearImage (); // Clear UI image
+        if (!dontEraseSeed)
+        {
+            currentPlant = null; // Clear current plant after planting
+            SeedPanelView.Instance.ClearImage(); // Clear UI image
+        }
 		return true;
     }
 }

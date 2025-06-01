@@ -15,12 +15,11 @@ public class Herbarium : MonoBehaviour
         Garden.OnPlantEnter += (Plot _, Plant p) =>
         {
             obtainedSeeds.Add(p);
-            print("SEED " + p.Species);
         };
         Garden.OnPlantMatured += (Plot _, Plant p) =>
         {
             obtainedPlants.Add(p);
-            print("PLANT " + p.Species);
+            if (HasObtainedAllPlants()) Trophies.Instance.ShowHerbierTrophy();
         };
     }
 
