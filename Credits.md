@@ -4,6 +4,7 @@ Sound Effects from [Pixabay](https://pixabay.com/)
 - by [Alexander Jauk](https://pixabay.com/users/alex_jauk-16800354/?)
 - by [floraphonic](https://pixabay.com/users/floraphonic-38928062/)
 - by [Adams](https://pixabay.com/users/benkirb-8692052/)
+- by [Jurij](https://pixabay.com/users/soundreality-31074404/)
 
 Assets
 - flowers from [100 hand picked pixel flowers](https://btl-games.itch.io/pixel-art-fauna-asset-pack) by BTL Games
@@ -14,5 +15,3 @@ Assets
 
 Font
 - [Advanced Pixel 7](https://www.dafont.com/advanced-pixel-7.font) by Style-7
-
-Sound Effect by <a href="https://pixabay.com/users/benkirb-8692052/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=268901">Benjamin Adams</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=268901">Pixabay</a>
