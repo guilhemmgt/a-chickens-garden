@@ -1,45 +1,40 @@
 using com.cyborgAssets.inspectorButtonPro;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Herbarium : MonoBehaviour
 {
     // Set des plantes déjà obtenues
-    public List<Plant> obtainedPlants = new List<Plant>();
+    public ISet<Plant> obtainedSeeds = new HashSet<Plant>();
+    public ISet<Plant> obtainedPlants = new HashSet<Plant>();
 
     public List<Plant> allPlants = new List<Plant>();
 
     private void Start()
     {
-        Garden.OnPlantMatured += TryAddPlant;
+        Garden.OnPlantEnter += (Plot _, Plant p) =>
+        {
+            obtainedSeeds.Add(p);
+            print("SEED " + p.Species);
+        };
+        Garden.OnPlantMatured += (Plot _, Plant p) =>
+        {
+            obtainedPlants.Add(p);
+            print("PLANT " + p.Species);
+        };
     }
 
-    public void TryAddPlant(Plot plot, Plant plant)
+    public bool HasSeed(Plant plant)
     {
-        bool isAlreadyObtained = false;
-        foreach (Plant p in obtainedPlants)
+        foreach (Plant p in obtainedSeeds)
         {
             if (p.Species == plant.Species)
             {
-                isAlreadyObtained = true;
+                return true;
             }
         }
 
-        if (!isAlreadyObtained)
-        {
-            obtainedPlants.Add(plant);
-            Debug.Log($"Plante {plant.Species} ajoutée à l'herbier.");
-
-            if (HasObtainedAllPlants())
-            {
-                Trophies.Instance.ShowHerbierTrophy();
-            }
-        }
-        else
-        {
-            Debug.Log($"Plante {plant.Species} déjà dans l'herbier, pas besoin de l'ajouter à nouveau.");
-        }
+        return false;
     }
 
     public bool HasPlant(Plant plant)
