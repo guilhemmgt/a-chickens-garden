@@ -13,7 +13,7 @@ public class Plant : ScriptableObject {
     [TextArea (3, 5), SerializeField] private string description;
     [SerializeField] private Sprite matureSprite;
     [SerializeField] public int score = 1;
-    [SerializeField] private int growthTime = 3;
+    [SerializeField] public int growthTime = 3;
     [field: SerializeField] public Plot plot { get; private set; }
     [SerializeReference, SubclassPicker] public ISkill skill;
     public int day;
