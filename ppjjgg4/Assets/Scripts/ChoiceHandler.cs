@@ -44,12 +44,13 @@ public class ChoiceHandler : MonoBehaviour
 
     public void SetCurrentPlant(Plant plant)
     {
-        if (currentPlant != null)
-        {
-            Debug.LogWarning("Replacing current plant: " + currentPlant.name + " with " + plant.name);
-        }
-        currentPlant = plant;
-		SeedPanelView.Instance.SetImage(currentPlant.Sprite); // Update UI image
+		currentPlant = plant;
+        if (currentPlant != null) {
+            Debug.LogWarning ("Replacing current plant: " + currentPlant.name + " with " + plant.name);
+            SeedPanelView.Instance.SetImage (currentPlant.Sprite); // Update UI image
+        } else {
+            SeedPanelView.Instance.ClearImage ();
+		}
     }
 
     public bool TryPlantCurrent(Plot plot)

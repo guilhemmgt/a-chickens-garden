@@ -48,9 +48,9 @@ public class GameManager : MonoBehaviour
     }
 
     [ProButton]
-    public void EndDay()
-    {
-        Chicken.Instance.FadeIn ().OnComplete (() => {
+    public void EndDay() {
+		ChoiceHandler.Instance.SetCurrentPlant (null);
+		Chicken.Instance.FadeIn ().OnComplete (() => {
             day++;
             OnDayEnded?.Invoke ();
             UpdateScore ();
