@@ -60,7 +60,7 @@ public class ChoiceHandler : MonoBehaviour
             Debug.LogWarning("No current plant selected.");
             return false;
         }
-        if (plot.plant != null)
+        if (plot.plant != null || plot.type == Plot.Type.Rock)
         {
             Debug.LogWarning("Plot is already occupied.");
             return false;

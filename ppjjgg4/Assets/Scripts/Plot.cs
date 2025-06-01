@@ -25,10 +25,10 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public int i { get; set; }
     public int j { get; set; }
 
-    [SerializeField] private Sprite defaultSprite = null;
+	[SerializeField] private Sprite defaultSprite = null;
 
-    [field: SerializeField] public List<Effect> effects { get; private set; }
-    [SerializeField] private Type type = Type.Soil;
+	[field: SerializeField] public List<Effect> effects { get; private set; }
+    [SerializeField] public Type type = Type.Soil;
     private SpriteRenderer sr => transform.GetChild(0).GetComponent<SpriteRenderer>();
     [field: SerializeField] public Plant plant { get; private set; }
 
@@ -38,10 +38,10 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         effects = new();
     }
 
-    [ProButton]
+	[ProButton]
     public void AddPlant(Plant plant)
     {
-        if (this.plant != null)
+        if (this.plant != null || type == Type.Rock)
         {
             Debug.LogWarning("Attempting to add plant to not empty plot");
             return;
@@ -57,7 +57,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     [ProButton]
     public void RemovePlant()
     {
-        if (plant != null)
+        if (plant != null && type != Type.Rock)
         {
             plant.OnRemoved();
             OnPlantExit?.Invoke(plant);
@@ -86,6 +86,9 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     {
         int score = 0;
 
+        if (type == Type.Rock)
+            return 0;
+
         if (plant != null && plant.hasMatured)
         {
             // Score de la plante
@@ -104,8 +107,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         return score;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
+    public void OnPointerClick(PointerEventData eventData) {
         if (GameManager.GameState == GameState.Digging)
         {
             if (plant != null)
@@ -176,7 +178,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public IEnumerator ShowBubbleAfterDelay()
     {
         yield return new WaitForSeconds(timeBeforeShowBubble);
-        if (plant != null)
+        if (plant != null && type != Type.Rock)
         {
             PreviewController.Instance.ShowBubble(transform.position, GetInfoPlot());
         }
@@ -190,7 +192,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         string opToDisplay = (modifier >= 0) ? "+" : "-";
         string info = "";
         //info += $"Type: {type}\n";
-        if (plant != null)
+        if (plant != null && type != Type.Rock)
         {
             info += $"Plant: {plant.Species}\n";
             if (plant.hasMatured)
