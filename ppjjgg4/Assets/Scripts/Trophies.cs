@@ -35,6 +35,8 @@ public class Trophies : MonoBehaviour
         if (POULETTO.activeSelf) n++;
         if (herbierTrophy.activeSelf) n++;
         if (scoreTrophy.activeSelf) n++;
+        if (shovelTrophy.activeSelf) n++;
+        if (pickaxeTrophy.activeSelf) n++;
         return n;
     }
 

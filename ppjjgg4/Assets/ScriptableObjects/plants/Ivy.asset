@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 
   matureSprite: {fileID: 5339229742347854233, guid: fd27be4e6db6892489f4b5c1b03fdd15, type: 3}
   score: 10
-  growthTime: 3
+  growthTime: 2
   <plot>k__BackingField: {fileID: 0}
   skill:
     rid: 9152124385362444365

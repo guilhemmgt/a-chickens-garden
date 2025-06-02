@@ -129,10 +129,10 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
                 Debug.Log ("Plot " + i + "," + j + " clicked, removing ROCK");
                 type = Type.Soil;
                 rockObject.SetActive (false);
+                AudioController.Instance.PlayShovelSound();
 
 
-				
-			}
+            }
 		}
 
 		if (GameManager.GameState != GameState.Planting)
@@ -202,14 +202,15 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     public string GetInfoPlot()
     {
-        int totalScore = GetPlotScore();
-        int baseScore = plant.GetScore();
-        int modifier = totalScore - baseScore;
-        string opToDisplay = (modifier >= 0) ? "+" : "-";
         string info = "";
         //info += $"Type: {type}\n";
         if (plant != null && type != Type.Rock)
         {
+            int totalScore = GetPlotScore();
+            int baseScore = plant.GetScore();
+            int modifier = totalScore - baseScore;
+            string opToDisplay = (modifier >= 0) ? "+" : "-";
+            
             info += $"Plant: {plant.Species}\n";
             if (plant.hasMatured)
             {
