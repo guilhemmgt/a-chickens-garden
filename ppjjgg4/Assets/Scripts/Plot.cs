@@ -35,7 +35,6 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     private SpriteRenderer sr => transform.GetChild(0).GetComponent<SpriteRenderer>();
     [field: SerializeField] public Plant plant { get; private set; }
 
-    static bool used = false;
 
 
 	private void Awake()
@@ -132,9 +131,7 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
                 rockObject.SetActive (false);
 
 
-				if (!used)
-					Trophies.Instance.UnlockTrophy (Trophies.Instance.pickaxeTrophy);
-				used = true;
+				
 			}
 		}
 

@@ -9,7 +9,7 @@ public class Pickaxe : MonoBehaviour, IPointerDownHandler {
 	[SerializeField] private Sprite usingSprite;
 	private SpriteRenderer sr;
 
-	[SerializeField] private bool unlocked;
+	[SerializeField] public bool unlocked;
 
 	private void Awake () {
 		Instance = this;

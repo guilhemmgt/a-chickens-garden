@@ -2,6 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using com.cyborgAssets.inspectorButtonPro;
 using System;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class UI_Controller : MonoBehaviour
 {
@@ -115,7 +116,10 @@ public class UI_Controller : MonoBehaviour
 
 		sample.OnComplete (() => {
 			if (Shop.Instance.uniqueSlot.isOpen && Shop.Instance.uniqueUnlockScore <= GameManager.Instance.score) {
+				if (!Pickaxe.Instance.unlocked)
+					Trophies.Instance.UnlockTrophy (Trophies.Instance.pickaxeTrophy);
 				Pickaxe.Instance.UnlockPickaxe ();
+				
 			}
 		});
 
