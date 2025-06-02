@@ -86,7 +86,6 @@ public class Trophies : MonoBehaviour
         {
             if (CheckShovel()) UnlockTrophy(shovelTrophy);
         };
-        // OnRockRemoved += () => pickaxeTrophy.SetActive(true);
     }
 
     private void OnEnable()
@@ -100,7 +99,7 @@ public class Trophies : MonoBehaviour
         Chicken.Instance.OnChickenClick -= OnChickenClicked;
     }
 
-    private void UnlockTrophy(GameObject trophy)
+    public void UnlockTrophy(GameObject trophy)
     {
         trophy.SetActive(true);
         AudioController.Instance.PlayTrophySuccessSound();

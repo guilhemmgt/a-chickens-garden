@@ -8,6 +8,7 @@ using Unity.XR.GoogleVr;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SocialPlatforms.Impl;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -34,8 +35,10 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     private SpriteRenderer sr => transform.GetChild(0).GetComponent<SpriteRenderer>();
     [field: SerializeField] public Plant plant { get; private set; }
 
+    static bool used = false;
 
-    private void Awake()
+
+	private void Awake()
     {
         effects = new();
     }
@@ -127,6 +130,11 @@ public class Plot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
                 Debug.Log ("Plot " + i + "," + j + " clicked, removing ROCK");
                 type = Type.Soil;
                 rockObject.SetActive (false);
+
+
+				if (!used)
+					Trophies.Instance.UnlockTrophy (Trophies.Instance.pickaxeTrophy);
+				used = true;
 			}
 		}
 
