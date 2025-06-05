@@ -103,6 +103,7 @@ public class Trophies : MonoBehaviour
 
     public void UnlockTrophy(GameObject trophy)
     {
+        if (trophy.activeSelf) return;
         trophy.SetActive(true);
         AudioController.Instance.PlayTrophySuccessSound();
     }
@@ -135,6 +136,7 @@ public class Trophies : MonoBehaviour
 
     public bool CheckShovel()
     {
+        if (shovelTrophy.activeSelf) return false;
         Garden garden = Garden.Instance;
         for (int i=0; i<garden.height; i++)
         {
